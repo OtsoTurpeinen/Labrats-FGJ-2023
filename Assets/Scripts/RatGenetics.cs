@@ -35,7 +35,7 @@ public class RatGenetics : MonoBehaviour
         obtained_genes = new List<RatGene>();
     }
 
-    void AddGene(GeneticType gene_type,float gene_value) {
+    public void AddGene(GeneticType gene_type,float gene_value) {
         RatGene gene = new RatGene();
         gene.gene_type = gene_type;
         gene.gene_value = gene_value;
