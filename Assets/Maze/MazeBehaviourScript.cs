@@ -1,0 +1,388 @@
+using System;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MazeBehaviourScript : MonoBehaviour
+{
+
+    public int mazeHeight = 10;
+    public int mazeWidth = 10;
+
+    public int[,] mazeTile;
+    public int[,] mazeWallHorizontal;
+    public int[,] mazeWallVertical;
+
+    public static int DIRECTION_NONE = 0;
+    public static int DIRECTION_NORTH = 1;
+    public static int DIRECTION_EAST = 2;
+    public static int DIRECTION_SOUTH = 3;
+    public static int DIRECTION_WEST = 4;
+
+    public int startX = 5;
+    public int startY = 9;
+
+    public int finishX = 6;
+    public int finishY = 0;
+
+    public bool started = false;
+
+    public GameObject wallPrefabHorizontal;
+    public GameObject wallPrefabVertical;
+
+    public GameObject startPrefab;
+    public GameObject finishPrefab;
+
+    public GameObject ratPrefab;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        InitializeMaze();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!started) {
+            started = true;
+            InitializeScene();
+        }
+
+    }
+
+    private void InitializeScene() {
+
+        InitializeRat(6.0f, 9.0f);
+
+    }
+
+    public void InitializeRat(float x, float y) {
+
+        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 4.5f - y * 1.0f, 0), Quaternion.identity);
+
+        RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
+        if (ratScript != null) {
+
+            ratScript.InitializeRat(x, y, this, this.mazeWidth, this.mazeHeight);
+        }
+
+    }
+
+
+    public void InitializeMaze() {
+
+        // Tile 1 = start, 2 = finish
+        this.mazeTile = new int[mazeHeight, mazeWidth]; // Enumerable.Range(this.mazeWidth, this.mazeHeight).ToArray();
+        this.mazeWallHorizontal = new int[(mazeHeight + 1),(mazeWidth + 1)];
+        this.mazeWallVertical = new int[(mazeHeight + 1),(mazeWidth + 1)];
+
+        // Empty maze and clear walls
+        for (int i = 0; i < mazeHeight; i++) {
+            for (int j = 0; j < mazeWidth; j++) {
+                this.mazeTile[i, j] = 0;
+            }
+        }
+
+         for (int i = 0; i < (mazeHeight + 1); i++) {
+            for (int j = 0; j < (mazeWidth + 1); j++) {
+                this.mazeWallHorizontal[i, j] = 0;
+                this.mazeWallVertical[i, j] = 0;
+            }
+        }       
+
+        // Outer walls
+        for (int i = 0; i < mazeHeight; i++) {
+            this.mazeWallHorizontal[i, 0] = 1;
+            this.mazeWallHorizontal[i, (mazeWidth)] = 1;
+        }
+
+        for (int j = 0; j < mazeWidth; j++) {
+            this.mazeWallVertical[0, j] = 1;
+            this.mazeWallVertical[(mazeHeight), j] = 1;
+        }
+
+
+
+        // For testing, add walls
+
+        for (int j = 1; j < (mazeWidth - 1); j++) {
+            this.addWall(j, 0, DIRECTION_SOUTH);
+            this.addWall(j, mazeHeight - 1, DIRECTION_NORTH);
+        }
+
+        for (int i = 1; i < (mazeHeight - 1); i++) {
+            this.addWall(0, i, DIRECTION_EAST);
+            this.addWall(mazeWidth - 1, i, DIRECTION_WEST);
+        }
+
+        this.removeWall(3, mazeHeight - 1, DIRECTION_NORTH);
+
+        this.addWall(3, mazeHeight - 2, DIRECTION_WEST);
+        this.addWall(3, mazeHeight - 2, DIRECTION_EAST);
+        this.addWall(3, mazeHeight - 3, DIRECTION_WEST);
+        this.addWall(3, mazeHeight - 3, DIRECTION_EAST);
+        this.addWall(3, mazeHeight - 4, DIRECTION_WEST);
+        this.addWall(3, mazeHeight - 4, DIRECTION_NORTH);
+
+        this.addWall(4, mazeHeight - 4, DIRECTION_NORTH);
+        this.addWall(4, mazeHeight - 4, DIRECTION_SOUTH);
+        this.addWall(5, mazeHeight - 4, DIRECTION_NORTH);
+        this.addWall(5, mazeHeight - 4, DIRECTION_SOUTH);
+
+        this.addWall(5, mazeHeight - 4, DIRECTION_EAST);
+
+        /*
+        this.addWall(1, 1, DIRECTION_NORTH);
+        this.addWall(0, 0, DIRECTION_SOUTH);
+        this.addWall(0, 0, DIRECTION_EAST);
+        */
+
+        bool resultUp = canMove(5, 4, 5, 3);
+        bool resultDown = canMove(5, 4, 5, 5);
+
+        Debug.Log("Result up: " + resultUp);
+        Debug.Log("Result down: " + resultDown);
+
+
+        // bool lineTest = this.isStraightLine(0, 1, 9, 1);
+        bool lineTest = this.isStraightLine(1, 0, 1, 9);
+
+        Debug.Log("Line testi: " + lineTest);
+
+        createMazeWalls();
+        createMazeStartAndFinish();
+
+    }
+
+    public void createMazeWalls() {
+
+        for (var i = 0; i < (mazeHeight + 1); i++)
+        {
+            for (int j = 0 ; j < (mazeWidth + 1); j++) {
+
+            
+                if (this.mazeWallVertical[i, j] > 0) {
+
+                    Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 5.0f - i * 1.0f, 0), Quaternion.identity);
+
+                }
+
+                if (this.mazeWallHorizontal[i, j] > 0) {
+
+                    Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 4.5f - i * 1.0f, 0), Quaternion.identity);
+
+                }
+
+            }
+            
+        }
+
+    }
+
+    public void createMazeStartAndFinish() {
+
+        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 4.5f - this.startY * 1.0f, 0), Quaternion.identity);
+
+        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 4.5f - this.finishY * 1.0f, 0), Quaternion.identity);
+
+    }
+
+    public void addWall(int x1, int y1, int direction) {
+
+       if (direction == DIRECTION_NORTH) {
+            this.mazeWallVertical[y1, x1] = 1;
+        }
+        else if (direction == DIRECTION_SOUTH) {
+            this.mazeWallVertical[y1 + 1, x1] = 1;
+        }
+        else if (direction == DIRECTION_EAST) {
+            this.mazeWallHorizontal[y1, x1 + 1] = 1;
+        }
+        else if (direction == DIRECTION_WEST) {
+            this.mazeWallHorizontal[y1, x1] = 1;
+        }  
+    }
+
+    public void removeWall(int x1, int y1, int direction)
+    {
+
+        if (direction == DIRECTION_NORTH)
+        {
+            this.mazeWallVertical[y1, x1] = 0;
+        }
+        else if (direction == DIRECTION_SOUTH)
+        {
+            this.mazeWallVertical[y1 + 1, x1] = 0;
+        }
+        else if (direction == DIRECTION_EAST)
+        {
+            this.mazeWallHorizontal[y1, x1 + 1] = 0;
+        }
+        else if (direction == DIRECTION_WEST)
+        {
+            this.mazeWallHorizontal[y1, x1] = 0;
+        }
+    }
+
+    public Vector3 getFinishPosition() {
+        return new Vector3(finishX, finishY, 0.0f);
+    }
+
+    public Vector3 getMove(int direction) {
+
+        if (direction == DIRECTION_NORTH) {
+            return new Vector3(0, -1, 0);
+        }
+        else if (direction == DIRECTION_EAST) {
+            return new Vector3(1, 0, 0);
+        }
+        else if (direction == DIRECTION_SOUTH) {
+            return new Vector3(0, 1, 0);
+        }
+        else if (direction == DIRECTION_WEST) {
+            return new Vector3(-1, 0, 0);
+        }
+
+        return new Vector3(0, 0, 0);
+    }
+
+    public int getDirection(int x1, int y1, int x2, int y2) {
+
+        if (x1 == x2) {
+            if (y1 > y2) {
+                return DIRECTION_NORTH;
+            }
+            else if (y1 < y2) {
+                return DIRECTION_SOUTH;
+            }
+        }
+        else if (y1 == y2) {
+            if (x1 > x2) {
+                return DIRECTION_WEST;
+            }
+            else if (x1 < x2) {
+                return DIRECTION_EAST;
+            }
+        }
+
+        return DIRECTION_NONE;
+    }
+
+    public int getReverseDirection(int direction)
+    {
+        if (direction == DIRECTION_NORTH)
+        {
+            return DIRECTION_SOUTH;
+        }
+        else if (direction == DIRECTION_SOUTH)
+        {
+            return DIRECTION_NORTH;
+        }
+        else if (direction == DIRECTION_EAST)
+        {
+            return DIRECTION_WEST;
+        }
+        else if (direction == DIRECTION_WEST)
+        {
+            return DIRECTION_EAST;
+        }
+
+        return DIRECTION_NONE;
+    }
+
+    // Route finding and utility functions
+    public bool canMove(int x1, int y1, int x2, int y2) {
+
+        int direction = getDirection(x1, y1, x2, y2);
+
+        if (direction == DIRECTION_NONE) {
+            return false;
+        }
+
+        return canMove(x1, y1, direction);
+    }
+
+    public bool canMove(int x1, int y1, int direction) {
+
+        bool movePossible = true;
+
+        if (direction == DIRECTION_NORTH) {
+            movePossible = (this.mazeWallVertical[y1, x1] == 0);
+        }
+        else if (direction == DIRECTION_SOUTH) {
+            movePossible = (this.mazeWallVertical[y1 + 1, x1] == 0);
+        }
+        else if (direction == DIRECTION_EAST) {
+            movePossible = (this.mazeWallHorizontal[y1, x1 + 1] == 0);
+        }
+        else if (direction == DIRECTION_WEST) {
+            movePossible = (this.mazeWallHorizontal[y1, x1] == 0);
+        }      
+
+        return movePossible;
+    }
+
+    public bool isStraightLine(int x1, int y1, int x2, int y2) {
+
+        int moveX = 0;
+        int moveY = 0;
+        int distance = 0;
+        int direction = DIRECTION_NONE;
+
+        if (x1 == x2 && y1 > y2) {
+            direction = DIRECTION_NORTH;
+            moveX = 0;
+            moveY = -1;
+            distance = y1 - y2;
+        }
+        else if (x1 == x2 && y1 < y2) {
+            direction = DIRECTION_SOUTH;
+            moveX = 0;
+            moveY = 1;
+            distance = y2 - y1;
+        }
+        else if (x1 < x2 && y1 == y2) {
+            direction = DIRECTION_EAST;
+            moveX = 1;
+            moveY = 0;
+            distance = x2 - x1;
+        }
+        else if (x1 > x2 && y1 == y2) {
+            direction = DIRECTION_WEST;
+            moveX = -1;
+            moveY = 0;
+            distance = x1 - x2;
+        }
+
+        if (direction != DIRECTION_NONE) {
+
+            int posX = x1;
+            int posY = y1;
+
+            for (int i = 0; i < distance; i++) {
+
+                Debug.Log("Test move: " + posX + ", " + posY + " => " + direction);
+
+                bool canMove = this.canMove(posX, posY, direction);
+
+                Debug.Log("Move possible: " + canMove);
+
+                if (!canMove) {
+                    return false;
+                }
+
+                posX += moveX;
+                posY += moveY;
+            }
+
+            return true;
+
+        }
+
+        return false;
+    }
+
+}
