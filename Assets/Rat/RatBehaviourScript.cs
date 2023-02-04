@@ -28,10 +28,14 @@ public class RatBehaviourScript : MonoBehaviour
     public int comingFrom = 0;
     public int currentNodeId = -1;
 
+    public int playerId = 0; 
+
     public int[,] mazeMemory;
 
     GameObject mazeObject;
     MazeBehaviourScript mazeScript;
+
+    Animator animator;
 
     public struct DirectionScan
     {
@@ -79,8 +83,8 @@ public class RatBehaviourScript : MonoBehaviour
         }
     }
 
-    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight) {
-
+    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight,int playerId) {
+        this.playerId = playerId;
         this.x = x;
         this.y = y;
         this.posX = x;
@@ -89,6 +93,7 @@ public class RatBehaviourScript : MonoBehaviour
         this.targetX = x;
         this.targetY = y;
         this.direction = MazeBehaviourScript.DIRECTION_NORTH;
+        this.animator = GetComponent<Animator>();
 
         this.routes = new List<RouteNode>();
 
@@ -103,6 +108,9 @@ public class RatBehaviourScript : MonoBehaviour
 
         // this.mazeObject = mazeObject;
         this.mazeScript = mazeScript;
+
+        // First node
+        AddNewNode(new Vector3(this.x, this.y, 0.0f), -1);
         
     }
 
@@ -117,7 +125,7 @@ public class RatBehaviourScript : MonoBehaviour
         this.posY = 4.5f - this.y * 1.0f;
          
 
-        Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
+        // Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
 
         this.gameObject.transform.position = new Vector3(posX, 0.0f, posY); //  this.gameObject.transform.position.z);
 
@@ -138,6 +146,7 @@ public class RatBehaviourScript : MonoBehaviour
         }
 
     }
+
 
     public void RatMovement() {
 
@@ -170,17 +179,18 @@ public class RatBehaviourScript : MonoBehaviour
                     // Movement is over
                     this.moving = false;
 
-                    Debug.Log("Moving false!");
+                    // Debug.Log("Moving false!");
 
                 }
                 else
                 {
-                    Debug.Log("Move diff: " + (int)this.x + " vs " + (int)this.targetX + ", " + (int)this.y + " vs " + (int)this.targetY);
+                    // Debug.Log("Move diff: " + (int)this.x + " vs " + (int)this.targetX + ", " + (int)this.y + " vs " + (int)this.targetY);
                 }
 
             }
             else {
                 // Instant turning for now, for one second delay
+                this.animator.SetInteger("direction",moveDirection);
                 this.direction = moveDirection;
             }
 
@@ -200,7 +210,9 @@ public class RatBehaviourScript : MonoBehaviour
 
             this.raceFinished = true;
 
-            Debug.Log("RACE FINISHED!!!");
+
+
+            //Debug.Log("RACE FINISHED!!!");
         }
 
         bool canSeeFinish = mazeScript.isStraightLine((int)this.x, (int)this.y, (int)finishPos.x, (int)finishPos.y);
