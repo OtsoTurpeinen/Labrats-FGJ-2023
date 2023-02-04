@@ -119,7 +119,7 @@ public class RatBehaviourScript : MonoBehaviour
 
         Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
 
-        this.gameObject.transform.position = new Vector3(posX, posY, 0.0f); //  this.gameObject.transform.position.z);
+        this.gameObject.transform.position = new Vector3(posX, 0.0f, posY); //  this.gameObject.transform.position.z);
 
     }
 
