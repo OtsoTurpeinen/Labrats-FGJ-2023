@@ -6,14 +6,24 @@
       <e p="Assets" t="Include">
         <e p="Animations" t="Include" />
         <e p="Genes" t="Include" />
+        <e p="Maze" t="Include">
+          <e p="MazeBehaviourScript.cs" t="Include" />
+        </e>
         <e p="Prefabs" t="Include" />
+        <e p="Rat" t="Include">
+          <e p="RatBehaviourScript.cs" t="Include" />
+        </e>
         <e p="Scenes" t="Include" />
         <e p="Scripts" t="Include">
           <e p="CameraController.cs" t="Include" />
           <e p="DraftScreen.cs" t="Include" />
+          <e p="GameController.cs" t="Include" />
           <e p="GeneScriptableObject.cs" t="Include" />
+          <e p="GeneUIController.cs" t="Include" />
           <e p="MainMenu.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
           <e p="RatGenetics.cs" t="Include" />
+          <e p="RatUIController.cs" t="Include" />
         </e>
         <e p="Sprites" t="Include">
           <e p="Resources" t="Include">
