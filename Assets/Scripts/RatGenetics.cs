@@ -2,85 +2,163 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.JSONSerializeModule;
-
 public enum GeneticType
 {
-    FORWARD_SPEED, //speed to next tile
-    TURN_RATE, //turning speed
-    GLUTONY, //range to 'cheese' before 'forced pathing'
-    METABOLISIM, //speed to recover from eating 'cheese'
-    PATHING, //increased chances of staying on the 'right' path
+    FORWARD_SPEED = 0, //speed to next tile
+    TURN_RATE = 1, //turning speed
+    GLUTONY = 2, //range to 'cheese' before 'forced pathing'
+    METABOLISIM = 3, //speed to recover from eating 'cheese'
+    PATHING = 4, //increased memory length
+    DIRECT = 5, //higher chance of going forward if choise to turn is given.
+    LAST
 }
 
-struct RatGene
+public enum GeneticPerk
 {
-    public GeneticType gene_type;
-    public float gene_value;
+    NONE = 0,
+    JUMPING = 1,
+    LAST
 }
-/* 
-[Serializable]
-public struct RatSerialized
+
+public struct RatGene
+{
+    public GeneticType type;
+    public float value;
+    public float likelyhood;
+    public GeneticPerk perk;
+}
+
+public struct RatStats
 {
     public float forward_speed;
     public float turn_rate;
     public float glutony;
     public float metabolisim;
     public float pathing;
-} */
+    public float direct;
+}
 
 public class RatGenetics : MonoBehaviour
 {
-    List<RatGene> obtained_genes;
+    List<RatGene> current_genes;
     public void Start() {
-        obtained_genes = new List<RatGene>();
+        current_genes = new List<RatGene>();
     }
 
-    public void AddGene(GeneticType gene_type,float gene_value) {
+    public void AddGene(GeneticType type,float value, float likelyhood, GeneticPerk perk) {
         RatGene gene = new RatGene();
-        gene.gene_type = gene_type;
-        gene.gene_value = gene_value;
-        obtained_genes.Add(gene);
+        gene.type = type;
+        gene.value = value;
+        gene.likelyhood = likelyhood;
+        gene.perk = GeneticPerk.NONE;
+        current_genes.Add(gene);
     }
 
-    public float GetGeneValue(GeneticType gene_type) {
-        float n = 0.0f;
-        foreach (RatGene gene in obtained_genes) {
-            if (gene.gene_type == gene_type) {
-                n += gene.gene_value;
+    public float GetGeneValue(GeneticType type) {
+        float n = 1.0f;
+        foreach (RatGene gene in current_genes) {
+            if (gene.type == type) {
+                n += gene.value;
             }
         }
         return n;
     }
-/* 
-    public string GetSerialized() {
-        RatSerialized serialized_rat = new RatSerialized();
-        serialized_rat.forward_speed = 0.0f;
-        serialized_rat.turn_rate = 0.0f;
-        serialized_rat.glutony = 0.0f;
-        serialized_rat.metabolisim = 0.0f;
-        serialized_rat.pathing = 0.0f;
-        foreach (RatGene gene in obtained_genes) {
-            switch (gene.gene_type)
+
+    public RatGene GetGene(int index) {
+        return current_genes[index];
+    }
+
+    public RatStats GetStats() {
+        RatStats r = new RatStats();
+        r.forward_speed = 1.0f;
+        r.turn_rate = 1.0f;
+        r.glutony = 1.0f;
+        r.metabolisim = 1.0f;
+        r.pathing = 1.0f;
+        r.direct = 1.0f;
+        foreach (RatGene gene in current_genes) {
+            switch (gene.type)
             {
-                case GeneticType.FORWARD_SPEED:
-                serialized_rat.forward_speed += gene.gene_value;
-                break;
-                case GeneticType.TURN_RATE:
-                serialized_rat.turn_rate += gene.gene_value;
-                break;
-                case GeneticType.GLUTONY:
-                serialized_rat.glutony += gene.gene_value;
-                break;
-                case GeneticType.METABOLISIM:
-                serialized_rat.metabolisim += gene.gene_value;
-                break;
-                case GeneticType.PATHING:
-                serialized_rat.pathing += gene.gene_value;
-                break;
+                case GeneticType.FORWARD_SPEED: // = 0, //speed to next tile
+                    r.forward_speed += gene.value;
+                    break;
+                case GeneticType.TURN_RATE: // = 1, //turning speed
+                    r.turn_rate += gene.value;
+                    break;
+                case GeneticType.GLUTONY: // = 2, //range to 'cheese' before 'forced pathing'
+                    r.glutony += gene.value;
+                    break;
+                case GeneticType.METABOLISIM: // = 3, //speed to recover from eating 'cheese'
+                    r.metabolisim += gene.value;
+                    break;
+                case GeneticType.PATHING: // = 4, //increased memory length
+                    r.pathing += gene.value;
+                    break;
+                case GeneticType.DIRECT: // = 5, //higher chance of going forward if choise to turn is given.
+                    r.direct += gene.value;
+                    break;
                 default:
-                break;
+                    break;
             }
         }
-        return JsonUtility.ToJson(serialized_rat);
-    } */
+        return r;
+    }
+
+    public bool HasPerk(GeneticPerk perk) {
+        foreach (RatGene gene in current_genes) {
+            if (gene.perk == perk) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<RatGene> Mix(List<RatGene> other) {
+        List<RatGene> new_genes = new List<RatGene>();
+        int i;
+        if (other.Count > current_genes.Count) {
+            for (i = 0; i < current_genes.Count; i++)
+            {
+                float f = Random.value * (current_genes[i].likelyhood + other[i].likelyhood) - current_genes[i].likelyhood;
+                if (f < 0.0f) {
+                    new_genes.Add(current_genes[i]);
+                } else {
+                    new_genes.Add(other[i]);
+                }
+            }
+            while( i < other.Count) {
+                new_genes.Add(other[i]);
+                i++;
+            }
+        } else {
+            for (i = 0; i < other.Count; i++)
+            {
+                float f = Random.value * (current_genes[i].likelyhood + other[i].likelyhood) - current_genes[i].likelyhood;
+                if (f < 0.0f) {
+                    new_genes.Add(current_genes[i]);
+                } else {
+                    new_genes.Add(other[i]);
+                }
+            }
+            while( i < current_genes.Count) {
+                new_genes.Add(current_genes[i]);
+                i++;
+            }
+        }
+        return new_genes;
+    }
+
+    public void GenerateRandom(int count) {
+        for (int i = 0; i < count; i++)
+        {
+            GeneticType t = (GeneticType)Random.Range(0,(int)GeneticType.LAST);
+            float v = Random.value * 2.0f - 1.0f;
+            float l = Random.value;
+            AddGene(t,v,l,GeneticPerk.NONE);
+        }
+    }
+
+    public void BuildFromList(List<RatGene> genes) {
+        current_genes = genes;
+    }
 }
