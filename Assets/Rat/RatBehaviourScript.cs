@@ -28,6 +28,8 @@ public class RatBehaviourScript : MonoBehaviour
     public int comingFrom = 0;
     public int currentNodeId = -1;
 
+    public int playerId = 0; 
+
     public int[,] mazeMemory;
 
     GameObject mazeObject;
@@ -81,8 +83,8 @@ public class RatBehaviourScript : MonoBehaviour
         }
     }
 
-    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight) {
-
+    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight,int playerId) {
+        this.playerId = playerId;
         this.x = x;
         this.y = y;
         this.posX = x;
@@ -208,7 +210,9 @@ public class RatBehaviourScript : MonoBehaviour
 
             this.raceFinished = true;
 
-            Debug.Log("RACE FINISHED!!!");
+
+
+            //Debug.Log("RACE FINISHED!!!");
         }
 
         bool canSeeFinish = mazeScript.isStraightLine((int)this.x, (int)this.y, (int)finishPos.x, (int)finishPos.y);

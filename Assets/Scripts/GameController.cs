@@ -34,6 +34,9 @@ public class GameController : MonoBehaviour
         {
             players.Add(new Player());
         }
+        game_state = GameState.NOT_STARTED;
+        StartGame(MAX_PLAYERS);
+        GameLoopStep();
     }
 
     public void StartGame(int human_players) {
@@ -44,11 +47,11 @@ public class GameController : MonoBehaviour
     }
 
     public void StartMaze(int maze_id) {
-
+        FindFirstObjectByType<MazeBehaviourScript>().InitializeMaze(maze_id);
     }
 
     public void StartDraft(int round) {
-
+//        FindFirstObjectByType<DraftController>().InitializeDraft(round);
     }
 
     public void CreateRatForPlayer(int i) {
@@ -72,7 +75,7 @@ public class GameController : MonoBehaviour
         switch (game_state)
         {
             case GameState.NOT_STARTED:
-                GoToInit();
+                GoToMaze();
                 break;
             case GameState.MAZE:
                 GoToScoring();
