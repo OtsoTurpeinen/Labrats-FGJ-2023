@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab1ed237a3d9809181b09f880815520, type: 3}
   m_Name: Chad
   m_EditorClassIdentifier: 
-  fancy_name: Name Me!
-  type: 0
+  fancy_name: Chad
+  type: 1
   value: 1
   likelyhood: 1
   perk: 0
