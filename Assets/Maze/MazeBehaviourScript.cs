@@ -37,6 +37,8 @@ public class MazeBehaviourScript : MonoBehaviour
 
     public GameObject ratPrefab;
 
+    public int mapNum = 3;
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,9 +82,9 @@ public class MazeBehaviourScript : MonoBehaviour
                 string firstChar = upperLine.Substring(j, 1);
                 string secondChar = upperLine.Substring(j + 1, 1);
 
-                if (secondChar == "W")
+                if (secondChar == "-")
                 {
-                    Debug.Log("Add north wall: " + x + ", " + y);
+                    // Debug.Log("Add north wall: " + x + ", " + y);
                     this.addWall(x, y, DIRECTION_NORTH);
                 }
 
@@ -96,9 +98,9 @@ public class MazeBehaviourScript : MonoBehaviour
                 string firstChar = sideLine.Substring(j, 1);
                 string secondChar = sideLine.Substring(j + 1, 1);
 
-                if (firstChar == "W")
+                if (firstChar == "I")
                 {
-                    Debug.Log("Add west wall: " + x + ", " + y);
+                    // Debug.Log("Add west wall: " + x + ", " + y);
                     this.addWall(x, y, DIRECTION_WEST);
                 }
 
@@ -197,7 +199,7 @@ public class MazeBehaviourScript : MonoBehaviour
 
        */
 
-        string txtFilePath = "Assets/Resources/map3.txt";
+        string txtFilePath = "Assets/Resources/map" + mapNum + ".txt";
         string mapContent = LoadMapFile(txtFilePath);
 
         bool resultUp = canMove(5, 4, 5, 3);

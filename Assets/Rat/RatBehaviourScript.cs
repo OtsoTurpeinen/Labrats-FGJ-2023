@@ -103,6 +103,9 @@ public class RatBehaviourScript : MonoBehaviour
 
         // this.mazeObject = mazeObject;
         this.mazeScript = mazeScript;
+
+        // First node
+        AddNewNode(new Vector3(this.x, this.y, 0.0f), -1);
         
     }
 
@@ -117,7 +120,7 @@ public class RatBehaviourScript : MonoBehaviour
         this.posY = 4.5f - this.y * 1.0f;
          
 
-        Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
+        // Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
 
         this.gameObject.transform.position = new Vector3(posX, 0.0f, posY); //  this.gameObject.transform.position.z);
 
@@ -170,12 +173,12 @@ public class RatBehaviourScript : MonoBehaviour
                     // Movement is over
                     this.moving = false;
 
-                    Debug.Log("Moving false!");
+                    // Debug.Log("Moving false!");
 
                 }
                 else
                 {
-                    Debug.Log("Move diff: " + (int)this.x + " vs " + (int)this.targetX + ", " + (int)this.y + " vs " + (int)this.targetY);
+                    // Debug.Log("Move diff: " + (int)this.x + " vs " + (int)this.targetX + ", " + (int)this.y + " vs " + (int)this.targetY);
                 }
 
             }
