@@ -61,7 +61,7 @@ public class MazeBehaviourScript : MonoBehaviour
 
     public void InitializeRat(float x, float y) {
 
-        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 4.5f - y * 1.0f, 0), Quaternion.identity);
+        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 0.0f, 4.5f - y * 1.0f), Quaternion.identity);
 
         RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
         if (ratScript != null) {
@@ -166,13 +166,13 @@ public class MazeBehaviourScript : MonoBehaviour
             
                 if (this.mazeWallVertical[i, j] > 0) {
 
-                    Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 5.0f - i * 1.0f, 0), Quaternion.identity);
+                    Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 0.0f, 5.0f - i * 1.0f), Quaternion.identity);
 
                 }
 
                 if (this.mazeWallHorizontal[i, j] > 0) {
 
-                    Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 4.5f - i * 1.0f, 0), Quaternion.identity);
+                    Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 0.0f, 4.5f - i * 1.0f), Quaternion.identity);
 
                 }
 
@@ -184,9 +184,9 @@ public class MazeBehaviourScript : MonoBehaviour
 
     public void createMazeStartAndFinish() {
 
-        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 4.5f - this.startY * 1.0f, 0), Quaternion.identity);
+        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 0.0f, 4.5f - this.startY * 1.0f), Quaternion.identity);
 
-        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 4.5f - this.finishY * 1.0f, 0), Quaternion.identity);
+        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 0.0f, 4.5f - this.finishY * 1.0f), Quaternion.identity);
 
     }
 
