@@ -35,7 +35,6 @@ public class MazeBehaviourScript : MonoBehaviour
     public GameObject startPrefab;
     public GameObject finishPrefab;
 
-    public GameObject ratPrefab;
 
     public int mapNum = 3;
 
@@ -110,21 +109,9 @@ public class MazeBehaviourScript : MonoBehaviour
 
     private void InitializeScene() {
 
-        InitializeRat(this.startX, this.startY);
 
     }
 
-    public void InitializeRat(float x, float y) {
-
-        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 0.0f, 4.5f - y * 1.0f), Quaternion.identity);
-
-        RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
-        if (ratScript != null) {
-
-            ratScript.InitializeRat(x, y, this, this.mazeWidth, this.mazeHeight,0);
-        }
-
-    }
 
 
     public void InitializeMaze(int id) {

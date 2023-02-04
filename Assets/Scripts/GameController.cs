@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
     
+    public GameObject ratPrefab;
     const int MAX_PLAYERS = 6;
     const int MAX_ROUNDS = 10;
     public int current_round = 0;
@@ -62,6 +63,10 @@ public class GameController : MonoBehaviour
 
     public void StartMaze(int maze_id) {
         FindFirstObjectByType<MazeBehaviourScript>().InitializeMaze(maze_id);
+        for (int i = 0; i < MAX_PLAYERS; i++)
+        {
+            CreateRatForPlayer(i);
+        }
     }
 
     public void StartDraft(int round) {
@@ -69,6 +74,15 @@ public class GameController : MonoBehaviour
     }
 
     public void CreateRatForPlayer(int i) {
+        MazeBehaviourScript maze = FindFirstObjectByType<MazeBehaviourScript>() as MazeBehaviourScript;
+        float x = maze.startX;
+        float y = maze.startY;
+        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 0.0f, 4.5f - y * 1.0f), Quaternion.identity);
+
+        RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
+        if (ratScript != null) {
+            ratScript.InitializeRat(x, y, maze, maze.mazeWidth, maze.mazeHeight,i);
+        }
 
     }
 
