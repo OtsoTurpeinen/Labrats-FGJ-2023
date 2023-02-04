@@ -228,13 +228,16 @@ public class MazeBehaviourScript : MonoBehaviour
             
                 if (this.mazeWallVertical[i, j] > 0) {
 
-                    Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 0.0f, 5.0f - i * 1.0f), Quaternion.identity);
+                    GameObject newWall = Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 0.0f, 5.0f - i * 1.0f), Quaternion.identity);
 
                 }
 
                 if (this.mazeWallHorizontal[i, j] > 0) {
 
-                    Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 0.0f, 4.5f - i * 1.0f), Quaternion.identity);
+                    GameObject newWall = Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 0.0f, 4.5f - i * 1.0f), Quaternion.identity);
+
+                    float yRotation = 90.0f;
+                    newWall.transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
 
                 }
 
