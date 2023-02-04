@@ -210,7 +210,7 @@ public class RatBehaviourScript : MonoBehaviour
 
             this.raceFinished = true;
 
-
+            GameController.Instance.RatReachedMazeEnd(playerId);
 
             //Debug.Log("RACE FINISHED!!!");
         }
