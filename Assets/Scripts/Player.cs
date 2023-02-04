@@ -11,8 +11,8 @@ public class Player
     public GameObject my_rat;
     public List<List<RatGene>> roots;
 
-    public void Init(bool human) {
-        is_human = false;
+    public void Init(bool bHuman) {
+        is_human = bHuman;
         score = 0;
         draft_active = false;
         my_rat_genes = new List<RatGene>();
