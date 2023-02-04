@@ -121,7 +121,7 @@ public class MazeBehaviourScript : MonoBehaviour
         RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
         if (ratScript != null) {
 
-            ratScript.InitializeRat(x, y, this, this.mazeWidth, this.mazeHeight);
+            ratScript.InitializeRat(x, y, this, this.mazeWidth, this.mazeHeight,0);
         }
 
     }
