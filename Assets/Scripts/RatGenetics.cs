@@ -100,6 +100,8 @@ public class RatGenetics : MonoBehaviour
         return false;
     }
 
+
+//deprecated, use player's new generation instead.
     public List<RatGene> Mix(List<RatGene> other) {
         List<RatGene> new_genes = new List<RatGene>();
         int i;
