@@ -60,8 +60,14 @@ public class MazeBehaviourScript : MonoBehaviour
     {
 
         string contents = File.ReadAllText(txtFilePath);
-
+        
+#if UNITY_STANDALONE_LINUX
+        List<string> lines = new List<string>(contents.Split("\n"));
+#elif UNITY_EDITOR_LINUX
+        List<string> lines = new List<string>(contents.Split("\n"));
+#else
         List<string> lines = new List<string>(contents.Split("\r\n"));
+#endif
 
         Debug.Log("Lines: " + lines.Count);
 

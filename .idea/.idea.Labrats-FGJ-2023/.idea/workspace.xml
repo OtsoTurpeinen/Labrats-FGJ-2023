@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39789002-1cca-4c58-b1eb-4597d090d183" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Labrats-FGJ-2023/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Labrats-FGJ-2023/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Labrats-FGJ-2023/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Labrats-FGJ-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Labrats-FGJ-2023/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labrats-FGJ-2023.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Labrats-FGJ-2023.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Gene.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Gene.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RatUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RatUI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stat.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Stat.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TopiasTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TopiasTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RatGenetics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RatGenetics.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,7 +21,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DraftScreen.cs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DraftScreen.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/DraftScreen.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -28,13 +35,102 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="RatUIController.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/RatUIController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+              <folding>
+                <marker date="1675533671313" expanded="true" signature="6:113" ph="..." />
+                <marker date="1675533671313" expanded="true" signature="159:1897" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="647:826" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="683:820" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="884:905" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="956:1895" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="1236:1303" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="1354:1419" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="1470:1530" ph="{...}" />
+                <marker date="1675533671313" expanded="true" signature="1585:1648" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GeneUIController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/GeneUIController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+              <folding>
+                <marker date="1675531915287" expanded="true" signature="6:113" ph="..." />
+                <marker date="1675531915287" expanded="true" signature="160:554" ph="{...}" />
+                <marker date="1675531915287" expanded="true" signature="309:330" ph="{...}" />
+                <marker date="1675531915287" expanded="true" signature="388:409" ph="{...}" />
+                <marker date="1675531915287" expanded="true" signature="452:552" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RatGenetics.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/RatGenetics.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="743">
+              <caret line="144" column="34" selection-start-line="144" selection-start-column="29" selection-end-line="144" selection-end-column="34" />
+              <folding>
+                <marker date="1675527735458" expanded="false" signature="6:78" ph="..." />
+                <marker date="1675527735458" expanded="true" signature="102:237" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="262:532" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="555:701" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="725:815" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="841:4392" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="902:954" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1059:1287" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1337:1530" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1411:1506" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1448:1496" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1570:1614" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1647:2411" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1820:2387" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="1852:2377" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="2455:2624" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="2505:2596" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="2542:2586" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="2728:3901" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="2847:3351" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="2902:3227" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3071:3143" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3264:3341" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3404:3729" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3573:3645" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3774:3859" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3945:4297" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="3986:4291" ph="{...}" />
+                <marker date="1675527735458" expanded="true" signature="4352:4390" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DraftScreen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RatGenetics.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GeneUIController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RatUIController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DraftScreen.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/RatGenetics.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GeneUIController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/RatUIController.cs" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -45,8 +141,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-9" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1964" />
+    <option name="y" value="-428" />
     <option name="width" value="1935" />
     <option name="height" value="1039" />
   </component>
@@ -111,12 +208,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1675510161874</updated>
-      <workItem from="1675510172126" duration="592000" />
+      <workItem from="1675510172126" duration="5377000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="592000" />
+    <option name="totallyTimeSpent" value="5377000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -128,7 +225,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1548" height="831" extended-state="1" />
+    <frame x="1912" y="-417" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -139,7 +236,7 @@
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19829424" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -171,6 +268,77 @@
             <marker date="1675509248439" expanded="true" signature="120:294" ph="{...}" />
             <marker date="1675509248439" expanded="true" signature="192:213" ph="{...}" />
             <marker date="1675509248439" expanded="true" signature="271:292" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/RatGenetics.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="743">
+          <caret line="144" column="34" selection-start-line="144" selection-start-column="29" selection-end-line="144" selection-end-column="34" />
+          <folding>
+            <marker date="1675527735458" expanded="false" signature="6:78" ph="..." />
+            <marker date="1675527735458" expanded="true" signature="102:237" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="262:532" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="555:701" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="725:815" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="841:4392" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="902:954" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1059:1287" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1337:1530" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1411:1506" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1448:1496" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1570:1614" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1647:2411" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1820:2387" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="1852:2377" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="2455:2624" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="2505:2596" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="2542:2586" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="2728:3901" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="2847:3351" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="2902:3227" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3071:3143" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3264:3341" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3404:3729" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3573:3645" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3774:3859" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3945:4297" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="3986:4291" ph="{...}" />
+            <marker date="1675527735458" expanded="true" signature="4352:4390" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/GeneUIController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+          <folding>
+            <marker date="1675531915287" expanded="true" signature="6:113" ph="..." />
+            <marker date="1675531915287" expanded="true" signature="160:554" ph="{...}" />
+            <marker date="1675531915287" expanded="true" signature="309:330" ph="{...}" />
+            <marker date="1675531915287" expanded="true" signature="388:409" ph="{...}" />
+            <marker date="1675531915287" expanded="true" signature="452:552" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/RatUIController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+          <folding>
+            <marker date="1675533671313" expanded="true" signature="6:113" ph="..." />
+            <marker date="1675533671313" expanded="true" signature="159:1897" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="647:826" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="683:820" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="884:905" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="956:1895" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="1236:1303" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="1354:1419" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="1470:1530" ph="{...}" />
+            <marker date="1675533671313" expanded="true" signature="1585:1648" ph="{...}" />
           </folding>
         </state>
       </provider>

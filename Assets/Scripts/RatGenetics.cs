@@ -36,10 +36,10 @@ public struct RatStats
     public float pathing;
 }
 
-public class RatGenetics : MonoBehaviour
+public class RatGenetics
 {
     List<RatGene> current_genes;
-    public void Start() {
+    public RatGenetics() {
         current_genes = new List<RatGene>();
     }
 
