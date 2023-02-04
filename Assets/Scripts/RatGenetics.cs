@@ -9,12 +9,15 @@ public enum GeneticType
     GLUTONY = 2, //range to 'cheese' before 'forced pathing'
     METABOLISIM = 3, //speed to recover from eating 'cheese'
     PATHING = 4, //increased memory length
+    DIRECT = 5, //higher chance of going forward if choise to turn is given.
+    LAST
 }
 
 public enum GeneticPerk
 {
     NONE = 0,
     JUMPING = 1,
+    LAST
 }
 
 public struct RatGene
@@ -32,6 +35,7 @@ public struct RatStats
     public float glutony;
     public float metabolisim;
     public float pathing;
+    public float direct;
 }
 
 public class RatGenetics : MonoBehaviour
@@ -58,6 +62,55 @@ public class RatGenetics : MonoBehaviour
             }
         }
         return n;
+    }
+
+    public RatGene GetGene(int index) {
+        return current_genes[index];
+    }
+
+    public RatStats GetStats() {
+        RatStats r = new RatStats();
+        r.forward_speed = 1.0f;
+        r.turn_rate = 1.0f;
+        r.glutony = 1.0f;
+        r.metabolisim = 1.0f;
+        r.pathing = 1.0f;
+        r.direct = 1.0f;
+        foreach (RatGene gene in current_genes) {
+            switch (gene.type)
+            {
+                case GeneticType.FORWARD_SPEED: // = 0, //speed to next tile
+                    r.forward_speed += gene.value;
+                    break;
+                case GeneticType.TURN_RATE: // = 1, //turning speed
+                    r.turn_rate += gene.value;
+                    break;
+                case GeneticType.GLUTONY: // = 2, //range to 'cheese' before 'forced pathing'
+                    r.glutony += gene.value;
+                    break;
+                case GeneticType.METABOLISIM: // = 3, //speed to recover from eating 'cheese'
+                    r.metabolisim += gene.value;
+                    break;
+                case GeneticType.PATHING: // = 4, //increased memory length
+                    r.pathing += gene.value;
+                    break;
+                case GeneticType.DIRECT: // = 5, //higher chance of going forward if choise to turn is given.
+                    r.direct += gene.value;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return r;
+    }
+
+    public bool HasPerk(GeneticPerk perk) {
+        foreach (RatGene gene in current_genes) {
+            if (gene.perk == perk) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<RatGene> Mix(List<RatGene> other) {
@@ -98,10 +151,14 @@ public class RatGenetics : MonoBehaviour
     public void GenerateRandom(int count) {
         for (int i = 0; i < count; i++)
         {
-            GeneticType t = (GeneticType)Random.Range(0,5);
+            GeneticType t = (GeneticType)Random.Range(0,(int)GeneticType.LAST);
             float v = Random.value * 2.0f - 1.0f;
             float l = Random.value;
             AddGene(t,v,l,GeneticPerk.NONE);
         }
+    }
+
+    public void BuildFromList(List<RatGene> genes) {
+        current_genes = genes;
     }
 }
