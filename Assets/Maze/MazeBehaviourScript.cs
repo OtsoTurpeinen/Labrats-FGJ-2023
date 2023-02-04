@@ -38,27 +38,16 @@ public class MazeBehaviourScript : MonoBehaviour
     public GameObject ratPrefab;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        InitializeMaze();
+    void Start() {
+        //InitializeMaze(2);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!started) {
-            started = true;
-            InitializeScene();
-        }
-
+    void CleanUpMaze() {
     }
-
     private string LoadMapFile(string txtFilePath)
     {
 
         string contents = File.ReadAllText(txtFilePath);
-        
 #if UNITY_STANDALONE_LINUX
         List<string> lines = new List<string>(contents.Split("\n"));
 #elif UNITY_EDITOR_LINUX
@@ -66,7 +55,6 @@ public class MazeBehaviourScript : MonoBehaviour
 #else
         List<string> lines = new List<string>(contents.Split("\r\n"));
 #endif
-
         Debug.Log("Lines: " + lines.Count);
 
         int x = 0;
@@ -137,7 +125,7 @@ public class MazeBehaviourScript : MonoBehaviour
     }
 
 
-    public void InitializeMaze() {
+    public void InitializeMaze(int id) {
 
         // Tile 1 = start, 2 = finish
         this.mazeTile = new int[mazeHeight, mazeWidth]; // Enumerable.Range(this.mazeWidth, this.mazeHeight).ToArray();
@@ -203,7 +191,7 @@ public class MazeBehaviourScript : MonoBehaviour
 
        */
 
-        string txtFilePath = "Assets/Resources/map3.txt";
+        string txtFilePath = string.Format("Assets/Resources/map_{0}.txt",id);
         string mapContent = LoadMapFile(txtFilePath);
 
         bool resultUp = canMove(5, 4, 5, 3);
@@ -223,6 +211,11 @@ public class MazeBehaviourScript : MonoBehaviour
 
         Debug.Log("Map content: " + mapContent);
 
+        if (!started) {
+            started = true;
+            InitializeScene();
+        }
+
     }
 
     public void createMazeWalls() {
@@ -234,13 +227,13 @@ public class MazeBehaviourScript : MonoBehaviour
             
                 if (this.mazeWallVertical[i, j] > 0) {
 
-                    GameObject newWall = Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 0.0f, 5.0f - i * 1.0f), Quaternion.identity);
+                    GameObject newWall = Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 0.0f, 5.0f - i * 1.0f), Quaternion.identity,gameObject.transform);
 
                 }
 
                 if (this.mazeWallHorizontal[i, j] > 0) {
 
-                    GameObject newWall = Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 0.0f, 4.5f - i * 1.0f), Quaternion.identity);
+                    GameObject newWall = Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 0.0f, 4.5f - i * 1.0f), Quaternion.identity,gameObject.transform);
 
                     float yRotation = 90.0f;
                     newWall.transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
@@ -255,9 +248,9 @@ public class MazeBehaviourScript : MonoBehaviour
 
     public void createMazeStartAndFinish() {
 
-        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 0.0f, 4.5f - this.startY * 1.0f), Quaternion.identity);
+        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 0.0f, 4.5f - this.startY * 1.0f), Quaternion.identity,gameObject.transform);
 
-        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 0.0f, 4.5f - this.finishY * 1.0f), Quaternion.identity);
+        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 0.0f, 4.5f - this.finishY * 1.0f), Quaternion.identity,gameObject.transform);
 
     }
 

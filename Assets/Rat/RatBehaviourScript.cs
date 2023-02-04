@@ -33,6 +33,8 @@ public class RatBehaviourScript : MonoBehaviour
     GameObject mazeObject;
     MazeBehaviourScript mazeScript;
 
+    Animator animator;
+
     public struct DirectionScan
     {
         public int junctions;
@@ -89,6 +91,7 @@ public class RatBehaviourScript : MonoBehaviour
         this.targetX = x;
         this.targetY = y;
         this.direction = MazeBehaviourScript.DIRECTION_NORTH;
+        this.animator = GetComponent<Animator>();
 
         this.routes = new List<RouteNode>();
 
@@ -139,6 +142,7 @@ public class RatBehaviourScript : MonoBehaviour
 
     }
 
+
     public void RatMovement() {
 
         // If rat is not turned to the direction is needs to go, do that first
@@ -181,6 +185,7 @@ public class RatBehaviourScript : MonoBehaviour
             }
             else {
                 // Instant turning for now, for one second delay
+                this.animator.SetInteger("direction",moveDirection);
                 this.direction = moveDirection;
             }
 

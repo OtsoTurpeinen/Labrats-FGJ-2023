@@ -11,6 +11,8 @@ public class Player
     public GameObject my_rat;
     public List<List<RatGene>> roots;
 
+    public bool reached_maze_end = false;
+
     public void Init(bool bHuman) {
         is_human = bHuman;
         score = 0;
