@@ -41,6 +41,8 @@
      <Compile Include="Assets/Scripts/DraftScreen.cs" />
      <Compile Include="Assets/Scripts/CameraController.cs" />
      <Compile Include="Assets/Scripts/GeneScriptableObject.cs" />
+     <Compile Include="Assets/Scripts/GameController.cs" />
+     <Compile Include="Assets/Scripts/Player.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/deck/Unity/Hub/Editor/2021.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
