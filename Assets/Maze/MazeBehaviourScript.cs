@@ -3,12 +3,13 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class MazeBehaviourScript : MonoBehaviour
 {
 
-    public int mazeHeight = 10;
-    public int mazeWidth = 10;
+    public int mazeHeight = 16;
+    public int mazeWidth = 16;
 
     public int[,] mazeTile;
     public int[,] mazeWallHorizontal;
@@ -21,7 +22,7 @@ public class MazeBehaviourScript : MonoBehaviour
     public static int DIRECTION_WEST = 4;
 
     public int startX = 5;
-    public int startY = 9;
+    public int startY = 14;
 
     public int finishX = 6;
     public int finishY = 0;
@@ -53,15 +54,79 @@ public class MazeBehaviourScript : MonoBehaviour
 
     }
 
+    private string LoadMapFile(string txtFilePath)
+    {
+
+        string contents = File.ReadAllText(txtFilePath);
+        
+#if UNITY_STANDALONE_LINUX
+        List<string> lines = new List<string>(contents.Split("\n"));
+#elif UNITY_EDITOR_LINUX
+        List<string> lines = new List<string>(contents.Split("\n"));
+#else
+        List<string> lines = new List<string>(contents.Split("\r\n"));
+#endif
+
+        Debug.Log("Lines: " + lines.Count);
+
+        int x = 0;
+        int y = 0;
+
+        // Go through the lines, two at the time
+        for (int i = 0; i < lines.Count; i+=2)
+        {
+            string upperLine = lines[i];
+            string sideLine = lines[i + 1];
+
+            x = 0;
+
+            // Upper walls
+            for (int j = 0; j < upperLine.Length; j+=2)
+            {
+                string firstChar = upperLine.Substring(j, 1);
+                string secondChar = upperLine.Substring(j + 1, 1);
+
+                if (secondChar == "W")
+                {
+                    Debug.Log("Add north wall: " + x + ", " + y);
+                    this.addWall(x, y, DIRECTION_NORTH);
+                }
+
+                x++;
+            }
+
+            x = 0;
+
+            for (int j = 0; j < sideLine.Length; j+= 2 )
+            {
+                string firstChar = sideLine.Substring(j, 1);
+                string secondChar = sideLine.Substring(j + 1, 1);
+
+                if (firstChar == "W")
+                {
+                    Debug.Log("Add west wall: " + x + ", " + y);
+                    this.addWall(x, y, DIRECTION_WEST);
+                }
+
+                x++;
+            }
+
+            y++;
+
+        }
+
+        return contents;
+    }
+
     private void InitializeScene() {
 
-        InitializeRat(6.0f, 9.0f);
+        InitializeRat(this.startX, this.startY);
 
     }
 
     public void InitializeRat(float x, float y) {
 
-        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 4.5f - y * 1.0f, 0), Quaternion.identity);
+        GameObject ratObject = Instantiate(ratPrefab, new Vector3(-5.0f + x * 1.0f, 0.0f, 4.5f - y * 1.0f), Quaternion.identity);
 
         RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
         if (ratScript != null) {
@@ -91,54 +156,55 @@ public class MazeBehaviourScript : MonoBehaviour
                 this.mazeWallHorizontal[i, j] = 0;
                 this.mazeWallVertical[i, j] = 0;
             }
-        }       
-
-        // Outer walls
-        for (int i = 0; i < mazeHeight; i++) {
-            this.mazeWallHorizontal[i, 0] = 1;
-            this.mazeWallHorizontal[i, (mazeWidth)] = 1;
         }
 
-        for (int j = 0; j < mazeWidth; j++) {
-            this.mazeWallVertical[0, j] = 1;
-            this.mazeWallVertical[(mazeHeight), j] = 1;
-        }
-
-
-
-        // For testing, add walls
-
-        for (int j = 1; j < (mazeWidth - 1); j++) {
-            this.addWall(j, 0, DIRECTION_SOUTH);
-            this.addWall(j, mazeHeight - 1, DIRECTION_NORTH);
-        }
-
-        for (int i = 1; i < (mazeHeight - 1); i++) {
-            this.addWall(0, i, DIRECTION_EAST);
-            this.addWall(mazeWidth - 1, i, DIRECTION_WEST);
-        }
-
-        this.removeWall(3, mazeHeight - 1, DIRECTION_NORTH);
-
-        this.addWall(3, mazeHeight - 2, DIRECTION_WEST);
-        this.addWall(3, mazeHeight - 2, DIRECTION_EAST);
-        this.addWall(3, mazeHeight - 3, DIRECTION_WEST);
-        this.addWall(3, mazeHeight - 3, DIRECTION_EAST);
-        this.addWall(3, mazeHeight - 4, DIRECTION_WEST);
-        this.addWall(3, mazeHeight - 4, DIRECTION_NORTH);
-
-        this.addWall(4, mazeHeight - 4, DIRECTION_NORTH);
-        this.addWall(4, mazeHeight - 4, DIRECTION_SOUTH);
-        this.addWall(5, mazeHeight - 4, DIRECTION_NORTH);
-        this.addWall(5, mazeHeight - 4, DIRECTION_SOUTH);
-
-        this.addWall(5, mazeHeight - 4, DIRECTION_EAST);
 
         /*
-        this.addWall(1, 1, DIRECTION_NORTH);
-        this.addWall(0, 0, DIRECTION_SOUTH);
-        this.addWall(0, 0, DIRECTION_EAST);
-        */
+       // Outer walls
+       for (int i = 0; i < mazeHeight; i++) {
+           this.mazeWallHorizontal[i, 0] = 1;
+           this.mazeWallHorizontal[i, (mazeWidth)] = 1;
+       }
+
+       for (int j = 0; j < mazeWidth; j++) {
+           this.mazeWallVertical[0, j] = 1;
+           this.mazeWallVertical[(mazeHeight), j] = 1;
+       }
+
+
+
+       // For testing, add walls
+
+       for (int j = 1; j < (mazeWidth - 1); j++) {
+           this.addWall(j, 0, DIRECTION_SOUTH);
+           this.addWall(j, mazeHeight - 1, DIRECTION_NORTH);
+       }
+
+       for (int i = 1; i < (mazeHeight - 1); i++) {
+           this.addWall(0, i, DIRECTION_EAST);
+           this.addWall(mazeWidth - 1, i, DIRECTION_WEST);
+       }
+
+       this.removeWall(3, mazeHeight - 1, DIRECTION_NORTH);
+
+       this.addWall(3, mazeHeight - 2, DIRECTION_WEST);
+       this.addWall(3, mazeHeight - 2, DIRECTION_EAST);
+       this.addWall(3, mazeHeight - 3, DIRECTION_WEST);
+       this.addWall(3, mazeHeight - 3, DIRECTION_EAST);
+       this.addWall(3, mazeHeight - 4, DIRECTION_WEST);
+       this.addWall(3, mazeHeight - 4, DIRECTION_NORTH);
+
+       this.addWall(4, mazeHeight - 4, DIRECTION_NORTH);
+       this.addWall(4, mazeHeight - 4, DIRECTION_SOUTH);
+       this.addWall(5, mazeHeight - 4, DIRECTION_NORTH);
+       this.addWall(5, mazeHeight - 4, DIRECTION_SOUTH);
+
+       this.addWall(5, mazeHeight - 4, DIRECTION_EAST);
+
+       */
+
+        string txtFilePath = "Assets/Resources/map3.txt";
+        string mapContent = LoadMapFile(txtFilePath);
 
         bool resultUp = canMove(5, 4, 5, 3);
         bool resultDown = canMove(5, 4, 5, 5);
@@ -155,6 +221,8 @@ public class MazeBehaviourScript : MonoBehaviour
         createMazeWalls();
         createMazeStartAndFinish();
 
+        Debug.Log("Map content: " + mapContent);
+
     }
 
     public void createMazeWalls() {
@@ -166,13 +234,16 @@ public class MazeBehaviourScript : MonoBehaviour
             
                 if (this.mazeWallVertical[i, j] > 0) {
 
-                    Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 5.0f - i * 1.0f, 0), Quaternion.identity);
+                    GameObject newWall = Instantiate(wallPrefabVertical, new Vector3(-5.0f + j * 1.0f, 0.0f, 5.0f - i * 1.0f), Quaternion.identity);
 
                 }
 
                 if (this.mazeWallHorizontal[i, j] > 0) {
 
-                    Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 4.5f - i * 1.0f, 0), Quaternion.identity);
+                    GameObject newWall = Instantiate(wallPrefabHorizontal, new Vector3(-5.5f + j * 1.0f, 0.0f, 4.5f - i * 1.0f), Quaternion.identity);
+
+                    float yRotation = 90.0f;
+                    newWall.transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
 
                 }
 
@@ -184,15 +255,16 @@ public class MazeBehaviourScript : MonoBehaviour
 
     public void createMazeStartAndFinish() {
 
-        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 4.5f - this.startY * 1.0f, 0), Quaternion.identity);
+        Instantiate(startPrefab, new Vector3(-5.5f + this.startX * 1.0f, 0.0f, 4.5f - this.startY * 1.0f), Quaternion.identity);
 
-        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 4.5f - this.finishY * 1.0f, 0), Quaternion.identity);
+        Instantiate(finishPrefab, new Vector3(-5.5f + this.finishX * 1.0f, 0.0f, 4.5f - this.finishY * 1.0f), Quaternion.identity);
 
     }
 
     public void addWall(int x1, int y1, int direction) {
 
        if (direction == DIRECTION_NORTH) {
+           // Debug.Log("North add well: " + x1 + ", " + y1);
             this.mazeWallVertical[y1, x1] = 1;
         }
         else if (direction == DIRECTION_SOUTH) {
