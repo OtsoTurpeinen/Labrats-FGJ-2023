@@ -153,4 +153,14 @@ public class RatGenetics
     public void BuildFromList(List<RatGene> genes) {
         current_genes = genes;
     }
+
+    public void ClearGenes()
+    {
+        current_genes.Clear();
+    }
+
+    public List<RatGene> GetGenes()
+    {
+        return current_genes;
+    }
 }

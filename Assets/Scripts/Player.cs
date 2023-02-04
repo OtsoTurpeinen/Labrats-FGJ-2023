@@ -8,8 +8,11 @@ public class Player
     public int score = 0;
     public bool draft_active = false;
     public List<RatGene> my_rat_genes;
+    public RatGenetics my_rat_genetics;
     public GameObject my_rat;
     public List<List<RatGene>> roots;
+    public RatUIController my_ratUI;
+    public bool already_drafted;
 
     public void Init(bool bHuman) {
         is_human = bHuman;
@@ -18,6 +21,14 @@ public class Player
         my_rat_genes = new List<RatGene>();
         my_rat = null;
         roots = new List<List<RatGene>>();
+        /*
+        float tempScore = Random.value * 10f;
+        score = (int) tempScore;
+        Debug.Log(score);
+        */
+        my_rat_genetics = new RatGenetics();
+        my_rat_genetics.GenerateRandom(5);
+        already_drafted = false;
     }
 
     public void NextGeneration(List<RatGene> b) {

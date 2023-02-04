@@ -1527,6 +1527,9 @@ MonoBehaviour:
   Gene3: {fileID: 7854294480931305868}
   Gene4: {fileID: 3757216215553841252}
   Gene5: {fileID: 8666829844580342852}
+  FadeOut: {fileID: 6445851074018019417}
+  Highlight: {fileID: 3485125663118617023}
+  LastScore: {fileID: 1118700474613761728}
 --- !u!1 &8165737213507569283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,6 +1779,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gene3
       objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
 --- !u!224 &4848587599288152887 stripped
@@ -2006,6 +2017,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gene5
       objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
 --- !u!224 &6201289972803213055 stripped
@@ -2118,6 +2137,14 @@ PrefabInstance:
     - target: {fileID: 5014742412047175439, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
       propertyPath: m_Name
       value: Gene1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
@@ -2349,6 +2376,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gene2
       objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
 --- !u!224 &2285598582395633000 stripped
@@ -2461,6 +2496,14 @@ PrefabInstance:
     - target: {fileID: 5014742412047175439, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
       propertyPath: m_Name
       value: Gene4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194232786967553341, guid: a3b827c6afa44dc48970deffea95af52, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b827c6afa44dc48970deffea95af52, type: 3}

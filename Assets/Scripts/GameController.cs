@@ -13,6 +13,8 @@ public enum GameState {
 public class GameController : MonoBehaviour
 {
 
+    public static GameController Instance { get; private set; }
+    
     const int MAX_PLAYERS = 6;
     public GameState game_state;
     public List<Player> players;
@@ -23,6 +25,7 @@ public class GameController : MonoBehaviour
         {
             players.Add(new Player());
         }
+        StartGame(6);
     }
 
     public void StartGame(int human_players) {
@@ -30,6 +33,17 @@ public class GameController : MonoBehaviour
         {
             players[i].Init(i < human_players);
         }
+    }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
     }
 
     public void StartMaze(int maze_id) {
