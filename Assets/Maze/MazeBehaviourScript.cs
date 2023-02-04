@@ -37,6 +37,8 @@ public class MazeBehaviourScript : MonoBehaviour
 
     public GameObject ratPrefab;
 
+    public int mapNum = 3;
+
 
     void Start() {
         //InitializeMaze(2);
@@ -74,9 +76,9 @@ public class MazeBehaviourScript : MonoBehaviour
                 string firstChar = upperLine.Substring(j, 1);
                 string secondChar = upperLine.Substring(j + 1, 1);
 
-                if (secondChar == "W")
+                if (secondChar == "-")
                 {
-                    Debug.Log("Add north wall: " + x + ", " + y);
+                    // Debug.Log("Add north wall: " + x + ", " + y);
                     this.addWall(x, y, DIRECTION_NORTH);
                 }
 
@@ -90,9 +92,9 @@ public class MazeBehaviourScript : MonoBehaviour
                 string firstChar = sideLine.Substring(j, 1);
                 string secondChar = sideLine.Substring(j + 1, 1);
 
-                if (firstChar == "W")
+                if (firstChar == "I")
                 {
-                    Debug.Log("Add west wall: " + x + ", " + y);
+                    // Debug.Log("Add west wall: " + x + ", " + y);
                     this.addWall(x, y, DIRECTION_WEST);
                 }
 
