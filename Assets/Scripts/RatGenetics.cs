@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.JSONSerializeModule;
 public enum GeneticType
 {
     FORWARD_SPEED = 0, //speed to next tile
     TURN_RATE = 1, //turning speed
-    GLUTONY = 2, //range to 'cheese' before 'forced pathing'
-    METABOLISIM = 3, //speed to recover from eating 'cheese'
-    PATHING = 4, //increased memory length
-    DIRECT = 5, //higher chance of going forward if choise to turn is given.
+    PATHING = 2, //increased memory length
     LAST
 }
 
 public enum GeneticPerk
 {
     NONE = 0,
-    JUMPING = 1,
+    JUMPING = 1, //has chance to jump over wall
+    GLUTONY = 2, //if int range of food, will take path that is 'closest' to food.
+    METABOLISIM = 3, //faster recovery from eating
+    DIRECT = 4, //will allways take forward path if possible
     LAST
 }
 
 public struct RatGene
 {
+
+    public string fancy_name;
     public GeneticType type;
     public float value;
     public float likelyhood;
@@ -32,10 +33,7 @@ public struct RatStats
 {
     public float forward_speed;
     public float turn_rate;
-    public float glutony;
-    public float metabolisim;
     public float pathing;
-    public float direct;
 }
 
 public class RatGenetics : MonoBehaviour
@@ -45,12 +43,13 @@ public class RatGenetics : MonoBehaviour
         current_genes = new List<RatGene>();
     }
 
-    public void AddGene(GeneticType type,float value, float likelyhood, GeneticPerk perk) {
+    public void AddGene(string name, GeneticType type,float value, float likelyhood, GeneticPerk perk) {
         RatGene gene = new RatGene();
+        gene.fancy_name = name;
         gene.type = type;
         gene.value = value;
         gene.likelyhood = likelyhood;
-        gene.perk = GeneticPerk.NONE;
+        gene.perk = perk;
         current_genes.Add(gene);
     }
 
@@ -72,10 +71,7 @@ public class RatGenetics : MonoBehaviour
         RatStats r = new RatStats();
         r.forward_speed = 1.0f;
         r.turn_rate = 1.0f;
-        r.glutony = 1.0f;
-        r.metabolisim = 1.0f;
         r.pathing = 1.0f;
-        r.direct = 1.0f;
         foreach (RatGene gene in current_genes) {
             switch (gene.type)
             {
@@ -85,17 +81,8 @@ public class RatGenetics : MonoBehaviour
                 case GeneticType.TURN_RATE: // = 1, //turning speed
                     r.turn_rate += gene.value;
                     break;
-                case GeneticType.GLUTONY: // = 2, //range to 'cheese' before 'forced pathing'
-                    r.glutony += gene.value;
-                    break;
-                case GeneticType.METABOLISIM: // = 3, //speed to recover from eating 'cheese'
-                    r.metabolisim += gene.value;
-                    break;
-                case GeneticType.PATHING: // = 4, //increased memory length
+                case GeneticType.PATHING: // = 2, //increased memory length
                     r.pathing += gene.value;
-                    break;
-                case GeneticType.DIRECT: // = 5, //higher chance of going forward if choise to turn is given.
-                    r.direct += gene.value;
                     break;
                 default:
                     break;
@@ -154,9 +141,12 @@ public class RatGenetics : MonoBehaviour
             GeneticType t = (GeneticType)Random.Range(0,(int)GeneticType.LAST);
             float v = Random.value * 2.0f - 1.0f;
             float l = Random.value;
-            AddGene(t,v,l,GeneticPerk.NONE);
+            GeneticPerk p = (GeneticPerk)Random.Range(0,(int)GeneticPerk.LAST);
+            AddGene("Random",t,v,l,p);
         }
     }
+
+
 
     public void BuildFromList(List<RatGene> genes) {
         current_genes = genes;
