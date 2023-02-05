@@ -38,7 +38,7 @@ public class Player
     }
 
     public void NextGeneration(List<RatGene> b) {
-        roots.Add(my_rat_genetics);
+        roots.Add(new RatGenetics(my_rat_genetics.current_genes));
         List<RatGene> a = new List<RatGene>(my_rat_genetics.GetGenes());
         //Debug.Log("My rat genes: " + my_rat_genetics.GetGenes().Count);
         my_rat_genes = new List<RatGene>();
