@@ -16,6 +16,17 @@ public class DraftController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void StartDraft()
+    {
         DraftRats = new List<RatGenetics>();
         DraftRats.Add(new RatGenetics());
         DraftRats.Add(new RatGenetics());
@@ -25,37 +36,29 @@ public class DraftController : MonoBehaviour
         DraftRats.Add(new RatGenetics());
         GenerateDraftRats();
         int i = 0;
-        Debug.Log(GameController.Instance.players.Count);
         
         foreach (var player in GameController.Instance.players)
         {
             player.my_ratUI = PlayerRatUIs[i];
-            player.my_ratUI.LastScore.text = player.score+"";
+            player.my_ratUI.LastScore.text = player.LastAddedScore+"";
             i++;
         }
         Player candidate = GameController.Instance.players.First();
         
         foreach (var player in GameController.Instance.players)
         {
-            if (candidate.score >= player.score)
+            if (candidate.OverallScore >= player.OverallScore)
             {
                 candidate = player;
                 
             }
-         
-            
         }
 
         currentDrafter = candidate;
         currentDrafter.my_ratUI.HighlightRat();
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     private void GenerateDraftRats()
     {
         for (int j = 0; j < DraftRats.Count; j++)
@@ -87,10 +90,9 @@ public class DraftController : MonoBehaviour
             allDrafted = true;
             if (!player.already_drafted)
             {
-                Debug.Log(player.score);
-                if (player.score >= currentDrafter.score)
+                if (player.OverallScore >= currentDrafter.OverallScore)
                 {            
-                    if (candidate.score >= player.score)
+                    if (candidate.OverallScore >= player.OverallScore)
                     {
                         candidate = player;
                     }

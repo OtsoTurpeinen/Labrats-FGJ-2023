@@ -24,7 +24,9 @@ public class RatUIController : MonoBehaviour
     public GameObject FadeOut;
     public GameObject Highlight;
     public TextMeshProUGUI LastScore;
-    
+
+    public Image RatImage;
+    public TextMeshProUGUI RatName;
     
     // Start is called before the first frame update
     void Start()
@@ -38,15 +40,8 @@ public class RatUIController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DisplayData(RatGenetics genetics)
     {
-        ClearGenes();
         Genetics = genetics;
         rStats = genetics.GetStats();
         SpeedText.text = rStats.forward_speed + "";
@@ -77,11 +72,6 @@ public class RatUIController : MonoBehaviour
         Gene3.AddGeneData(genetics.GetGene(2));
         Gene4.AddGeneData(genetics.GetGene(3));
         Gene5.AddGeneData(genetics.GetGene(4));
-    }
-
-    private void ClearGenes()
-    {
-        
     }
 
     public void DisableRat()
