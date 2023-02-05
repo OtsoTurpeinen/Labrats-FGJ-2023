@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     public List<RatUIController> RatUiControllers; //Set in editor, references to the ratUIs in the bottom of the screen
     void Start()
     {
-        current_round = 3;
+        current_round = 0;
         players = new List<Player>();
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
@@ -151,6 +151,9 @@ public class GameController : MonoBehaviour
         StartMaze(current_round);
     }
     void GoToScoring() {
+        
+        MazeBehaviourScript maze = FindFirstObjectByType<MazeBehaviourScript>() as MazeBehaviourScript;
+        maze.CleanUpMaze();
         DraftScreen.SetActive(false);
         //MazeScreen.SetActive(false);
         ScoreScreen.SetActive(true);
