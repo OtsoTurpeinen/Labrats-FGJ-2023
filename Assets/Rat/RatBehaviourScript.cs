@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using Unity.VisualScripting;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 static class MyExtensions
 {

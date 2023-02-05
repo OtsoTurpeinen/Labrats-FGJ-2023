@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
     
     public GameObject ratPrefab;
     const int MAX_PLAYERS = 6;
-    const int MAX_ROUNDS = 10;
+    const int MAX_ROUNDS = 3;
     public int current_round = 0;
 
     public int selected_player_count = 1;
