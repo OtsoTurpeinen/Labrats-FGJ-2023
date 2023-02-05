@@ -108,6 +108,7 @@ public class DraftController : MonoBehaviour
                 rat.UndisableRat();
             }
             GameController.Instance.GameLoopStep();
+            return;
         }
         currentDrafter = candidate;
         currentDrafter.my_ratUI.HighlightRat();

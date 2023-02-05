@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18029127, g: 0.22572401, b: 0.3069303, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,7 +157,7 @@ MonoBehaviour:
   MazeScreen: {fileID: 0}
   GameEndScreen: {fileID: 954010610}
   scoreController: {fileID: 807018205}
-  draftController: {fileID: 0}
+  draftController: {fileID: 1301339552}
   ratPrefab: {fileID: 2611405125838176661, guid: dfc3ec63e89096649a87f0c46cd71ed7, type: 3}
   current_round: 3
   selected_player_count: 6
@@ -1746,6 +1746,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8937305611043949860, guid: 32b6929ffb9543945835441595c77fde, type: 3}
   m_PrefabInstance: {fileID: 1113458777}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1301339552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8991192916735278603, guid: 32b6929ffb9543945835441595c77fde, type: 3}
+  m_PrefabInstance: {fileID: 1113458777}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301339551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac6723c7ddf4194d9fcf5fadf36f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1563017669
 GameObject:
   m_ObjectHideFlags: 0
