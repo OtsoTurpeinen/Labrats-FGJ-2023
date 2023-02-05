@@ -23,8 +23,11 @@ public static void Shuffle<T>(this IList<T> list)
 
 public class RatBehaviourScript : MonoBehaviour
 {
-    const float MAX_SPEED = 0.2f;
-    const float MIN_SPEED = 1.0f;
+    const float MAX_SPEED = 0.25f;
+    const float MIN_SPEED = 0.75f;
+
+    const float MAX_SPEED_STAT = 20;
+    const float MIN_SPEED_STAT = 0;
     public float x; // Grid coordinates
     public float y;
 
@@ -146,7 +149,7 @@ public class RatBehaviourScript : MonoBehaviour
         this.posY = 4.5f - this.y * 1.0f;
          
 
-        // Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
+        // //Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
 
         this.gameObject.transform.position = new Vector3(posX, 0.25f, posY); //  this.gameObject.transform.position.z);
 
@@ -187,9 +190,10 @@ public class RatBehaviourScript : MonoBehaviour
 
             // Move if we have same direction
             if (this.direction == moveDirection) {
-                waitTime = Mathf.Min(MIN_SPEED,Mathf.Max(MAX_SPEED,1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
+                waitTime = Mathf.Lerp(MIN_SPEED,MAX_SPEED,Mathf.InverseLerp(MIN_SPEED_STAT,MAX_SPEED_STAT,genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
+                //Debug.Log(waitTime + " movement with " + genetics.GetGeneValue(GeneticType.FORWARD_SPEED));
 
-               //  Debug.Log("Moving...");
+               //  //Debug.Log("Moving...");
 
                 Vector3 newMove = this.mazeScript.getMove(moveDirection);
 
@@ -204,19 +208,20 @@ public class RatBehaviourScript : MonoBehaviour
                     // Movement is over
                     this.moving = false;
 
-                    // Debug.Log("Moving false!");
+                    // //Debug.Log("Moving false!");
 
                 }
                 else
                 {
-                    // Debug.Log("Move diff: " + (int)this.x + " vs " + (int)this.targetX + ", " + (int)this.y + " vs " + (int)this.targetY);
+                    // //Debug.Log("Move diff: " + (int)this.x + " vs " + (int)this.targetX + ", " + (int)this.y + " vs " + (int)this.targetY);
                 }
 
             }
             else {
                 // Instant turning for now, for one second delay
                 this.animator.SetInteger("direction",moveDirection);
-                waitTime = Mathf.Min(MIN_SPEED,Mathf.Max(MAX_SPEED,1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE)));
+                waitTime = Mathf.Lerp(MIN_SPEED,MAX_SPEED,Mathf.InverseLerp(MIN_SPEED_STAT,MAX_SPEED_STAT,genetics.GetGeneValue(GeneticType.TURN_RATE)));
+                //Debug.Log(waitTime + " turn with " + genetics.GetGeneValue(GeneticType.TURN_RATE));
                 this.direction = moveDirection;
             }
 
@@ -236,14 +241,14 @@ public class RatBehaviourScript : MonoBehaviour
 
             this.raceFinished = true;
 
-            Debug.Log("RACE FINISHED!!!");
+            //Debug.Log("RACE FINISHED!!!");
             GameController.Instance.RatReachedMazeEnd(playerId,gameObject);
-            Debug.Log("Informed game controller!!");
+            //Debug.Log("Informed game controller!!");
         }
 
         bool canSeeFinish = mazeScript.isStraightLine((int)this.x, (int)this.y, (int)finishPos.x, (int)finishPos.y);
 
-        // Debug.Log("Can see finish: " + canSeeFinish);
+        // //Debug.Log("Can see finish: " + canSeeFinish);
 
         if (canSeeFinish) {
             this.targetX = finishPos.x;
@@ -285,7 +290,7 @@ public class RatBehaviourScript : MonoBehaviour
         if (intelligence < 55) { intelligence = 55; }
         if (intelligence > 85) { intelligence = 85; }
 
-        Debug.Log("Effective smarts stat: " + intelligence);
+        //Debug.Log("Effective smarts stat: " + intelligence);
 
         int intRoll = Random.Range(0, 100);
         bool smartCheckPassed = true;
@@ -369,7 +374,7 @@ public class RatBehaviourScript : MonoBehaviour
                         }
 
                         // First junction is saved
-                        // Debug.Log("Scan: " + scanX + ", " + scanY + ", Ways: " + ways);
+                        // //Debug.Log("Scan: " + scanX + ", " + scanY + ", Ways: " + ways);
 
                         // If there is old node here (first node most likely), mark it as blocker
                         if (ways > 1 || existingNode.id > 0) // more ways then one
@@ -407,7 +412,7 @@ public class RatBehaviourScript : MonoBehaviour
 
                 if (distance == 0)
                 {
-                    Debug.Log("Cant move to direction: " + direction + ", Dead end marked!");
+                    //Debug.Log("Cant move to direction: " + direction + ", Dead end marked!");
                     deadend = 1;
                 }
 
@@ -447,7 +452,7 @@ public class RatBehaviourScript : MonoBehaviour
 
                     int newId = AddNewNode(closestJunction, thisNodeId);
 
-                    Debug.Log("Add new node: " + newId + ", X: " + closestJunction.x + ", Y: " + closestJunction.y);
+                    //Debug.Log("Add new node: " + newId + ", X: " + closestJunction.x + ", Y: " + closestJunction.y);
                 
                 }
                 else // Or check if old node point has been visited
@@ -480,8 +485,8 @@ public class RatBehaviourScript : MonoBehaviour
                     winningDirection.deadend = deadend;
                     winningDirection.junctions = junctions;
 
-                    Debug.Log("Direction " + direction + " wins for now!");
-                    Debug.Log("Distance: " + distance + ", Deadend: " + deadend + ", Junctions: " + junctions);
+                    //Debug.Log("Direction " + direction + " wins for now!");
+                    //Debug.Log("Distance: " + distance + ", Deadend: " + deadend + ", Junctions: " + junctions);
 
                 }
 
@@ -492,11 +497,11 @@ public class RatBehaviourScript : MonoBehaviour
         // Failing smarts check will give you random direction instead of the best one
         if (!smartCheckPassed && randomDirections.Count > 0)
         {
-            Debug.Log("Random options: " + randomDirections.Count);
+            //Debug.Log("Random options: " + randomDirections.Count);
 
             int randomDirectionNum = Random.Range(0, randomDirections.Count);
 
-            Debug.Log("Random direction: " + randomDirectionNum);
+            //Debug.Log("Random direction: " + randomDirectionNum);
 
             winningDirection.direction = randomDirections[randomDirectionNum].direction;
             winningDirection.firstJunction = randomDirections[randomDirectionNum].firstJunction;
@@ -504,24 +509,24 @@ public class RatBehaviourScript : MonoBehaviour
             winningDirection.deadend = randomDirections[randomDirectionNum].deadend;
             winningDirection.junctions = randomDirections[randomDirectionNum].junctions;
 
-            Debug.Log("Random Direction " + winningDirection.direction + " wins for now!");
-            Debug.Log("Random Distance: " + winningDirection.distance + ", Deadend: " + winningDirection.deadend + ", Junctions: " + winningDirection.junctions);
+            //Debug.Log("Random Direction " + winningDirection.direction + " wins for now!");
+            //Debug.Log("Random Distance: " + winningDirection.distance + ", Deadend: " + winningDirection.deadend + ", Junctions: " + winningDirection.junctions);
         }
 
         // Winner direction and set target
         if (winningDirection.distance < 999 && winningDirection.junctions > 0)
         {
-            Debug.Log("Last winner: " + winningDirection.direction);
+            //Debug.Log("Last winner: " + winningDirection.direction);
 
             this.targetX = winningDirection.firstJunction.x;
             this.targetY = winningDirection.firstJunction.y;
 
-            Debug.Log("Movement to : " + (int)this.targetX + ", " + (int)this.targetY);
+            //Debug.Log("Movement to : " + (int)this.targetX + ", " + (int)this.targetY);
 
         }
         else // Traceback out of here, if there is no routes possible (visited ruled out)
         {
-            Debug.Log("Traceback! CurrentId: " + currentNodeId);
+            //Debug.Log("Traceback! CurrentId: " + currentNodeId);
 
             RouteNode thisNode = getNodeById(currentNodeId);
             int prevId = thisNode.prevId;
@@ -530,7 +535,7 @@ public class RatBehaviourScript : MonoBehaviour
             this.targetX = prevNode.nodePoint.x;
             this.targetY = prevNode.nodePoint.y;
 
-            Debug.Log("Traceback to : " + (int)this.targetX + ", " + (int)this.targetY);
+            //Debug.Log("Traceback to : " + (int)this.targetX + ", " + (int)this.targetY);
 
         }
 
@@ -573,7 +578,7 @@ public class RatBehaviourScript : MonoBehaviour
 
         if (thisNode.id > 0)
         {
-            Debug.Log("CURRENT NODE: " + thisNode.id);
+            //Debug.Log("CURRENT NODE: " + thisNode.id);
 
             thisNode.visited = true;
             currentNodeId = thisNode.id;
@@ -611,11 +616,11 @@ public class RatBehaviourScript : MonoBehaviour
     }
     private void ListNodes()
     {
-        Debug.Log("Listing Nodes:");
+        //Debug.Log("Listing Nodes:");
 
         foreach (RouteNode node in this.routes)
         {
-            Debug.Log("Id: " + node.id + ", Prev: " + node.prevId + ", Visited: " + node.visited + ", Pos: " + node.nodePoint.x + ", " + node.nodePoint.y);
+            //Debug.Log("Id: " + node.id + ", Prev: " + node.prevId + ", Visited: " + node.visited + ", Pos: " + node.nodePoint.x + ", " + node.nodePoint.y);
         }
     }
 

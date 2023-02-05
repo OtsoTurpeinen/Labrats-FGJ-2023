@@ -63,7 +63,7 @@ public class MazeBehaviourScript : MonoBehaviour
 #else
         List<string> lines = new List<string>(contents.Split("\r\n"));
 #endif
-        Debug.Log("Lines: " + lines.Count);
+        //Debug.Log("Lines: " + lines.Count);
 
         int x = 0;
         int y = 0;
@@ -84,7 +84,7 @@ public class MazeBehaviourScript : MonoBehaviour
 
                 if (secondChar == "-")
                 {
-                    // Debug.Log("Add north wall: " + x + ", " + y);
+                    // //Debug.Log("Add north wall: " + x + ", " + y);
                     this.addWall(x, y, DIRECTION_NORTH);
                 }
 
@@ -100,7 +100,7 @@ public class MazeBehaviourScript : MonoBehaviour
 
                 if (firstChar == "I")
                 {
-                    // Debug.Log("Add west wall: " + x + ", " + y);
+                    // //Debug.Log("Add west wall: " + x + ", " + y);
                     this.addWall(x, y, DIRECTION_WEST);
                 }
 
@@ -193,19 +193,19 @@ public class MazeBehaviourScript : MonoBehaviour
         bool resultUp = canMove(5, 4, 5, 3);
         bool resultDown = canMove(5, 4, 5, 5);
 
-        Debug.Log("Result up: " + resultUp);
-        Debug.Log("Result down: " + resultDown);
+        //Debug.Log("Result up: " + resultUp);
+        //Debug.Log("Result down: " + resultDown);
 
 
         // bool lineTest = this.isStraightLine(0, 1, 9, 1);
         bool lineTest = this.isStraightLine(1, 0, 1, 9);
 
-        Debug.Log("Line testi: " + lineTest);
+        //Debug.Log("Line testi: " + lineTest);
 
         createMazeWalls();
         createMazeStartAndFinish();
 
-        Debug.Log("Map content: " + mapContent);
+        //Debug.Log("Map content: " + mapContent);
 
         if (!started) {
             started = true;
@@ -253,7 +253,7 @@ public class MazeBehaviourScript : MonoBehaviour
     public void addWall(int x1, int y1, int direction) {
 
        if (direction == DIRECTION_NORTH) {
-           // Debug.Log("North add well: " + x1 + ", " + y1);
+           // //Debug.Log("North add well: " + x1 + ", " + y1);
             this.mazeWallVertical[y1, x1] = 1;
         }
         else if (direction == DIRECTION_SOUTH) {
@@ -426,11 +426,11 @@ public class MazeBehaviourScript : MonoBehaviour
 
             for (int i = 0; i < distance; i++) {
 
-                Debug.Log("Test move: " + posX + ", " + posY + " => " + direction);
+                //Debug.Log("Test move: " + posX + ", " + posY + " => " + direction);
 
                 bool canMove = this.canMove(posX, posY, direction);
 
-                Debug.Log("Move possible: " + canMove);
+                //Debug.Log("Move possible: " + canMove);
 
                 if (!canMove) {
                     return false;
