@@ -23,8 +23,11 @@ public static void Shuffle<T>(this IList<T> list)
 
 public class RatBehaviourScript : MonoBehaviour
 {
-    const float MAX_SPEED = 0.2f;
-    const float MIN_SPEED = 1.0f;
+    const float MAX_SPEED = 0.25f;
+    const float MIN_SPEED = 0.75f;
+
+    const float MAX_SPEED_STAT = 20;
+    const float MIN_SPEED_STAT = 0;
     public float x; // Grid coordinates
     public float y;
 
@@ -187,7 +190,8 @@ public class RatBehaviourScript : MonoBehaviour
 
             // Move if we have same direction
             if (this.direction == moveDirection) {
-                waitTime = Mathf.Min(MIN_SPEED,Mathf.Max(MAX_SPEED,1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
+                waitTime = Mathf.Lerp(MIN_SPEED,MAX_SPEED,Mathf.InverseLerp(MIN_SPEED_STAT,MAX_SPEED_STAT,genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
+                Debug.Log(waitTime + " movement with " + genetics.GetGeneValue(GeneticType.FORWARD_SPEED));
 
                //  Debug.Log("Moving...");
 
@@ -216,7 +220,8 @@ public class RatBehaviourScript : MonoBehaviour
             else {
                 // Instant turning for now, for one second delay
                 this.animator.SetInteger("direction",moveDirection);
-                waitTime = Mathf.Min(MIN_SPEED,Mathf.Max(MAX_SPEED,1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE)));
+                waitTime = Mathf.Lerp(MIN_SPEED,MAX_SPEED,Mathf.InverseLerp(MIN_SPEED_STAT,MAX_SPEED_STAT,genetics.GetGeneValue(GeneticType.TURN_RATE)));
+                Debug.Log(waitTime + " turn with " + genetics.GetGeneValue(GeneticType.TURN_RATE));
                 this.direction = moveDirection;
             }
 
