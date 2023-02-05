@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -204,7 +205,11 @@ public class GameController : MonoBehaviour
     }
     void GoToGameEnd() {
         game_state = GameState.GAME_END;
+        List<Player> orderedList = players.OrderByDescending(x => x.OverallScore).ToList();
         GameEndScreen.SetActive(true);
+        EndScreen endScreen = GameEndScreen.GetComponent<EndScreen>();
+        
+
     }
     void GoToMainMenu() {
         game_state = GameState.NOT_STARTED;
