@@ -415,7 +415,7 @@ public class RatBehaviourScript : MonoBehaviour
 
                 bool thisWins = false;
 
-                if (deadend == 0)
+                if (deadend == 0 || junctions > 0)
                 {  // We are not going into deadends... yet
 
                     if (junctions > winningDirection.junctions)
