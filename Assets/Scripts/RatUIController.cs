@@ -80,6 +80,11 @@ public class RatUIController : MonoBehaviour
         Highlight.SetActive(false);
     }
 
+    public void UndisableRat()
+    {
+        FadeOut.SetActive(false);
+    }
+    
     public void HighlightRat()
     {
         Highlight.SetActive(true);
