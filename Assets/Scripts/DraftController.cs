@@ -112,10 +112,20 @@ public class DraftController : MonoBehaviour
         currentDrafter.already_drafted = true;
         if (allDrafted)
         {
+            foreach (var player in GameController.Instance.players)
+            {
+                player.already_drafted = false;
+            }
             foreach (var rat in PlayerRatUIs)
             {
                 rat.UndisableRat();
             }
+
+            foreach (var ratUI in DraftRatUIs)
+            {
+                ratUI.UndisableRat();
+            }
+            
             GameController.Instance.GameLoopStep();
             return;
         }
