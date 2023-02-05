@@ -154,7 +154,7 @@ public class GameController : MonoBehaviour
         ScoreScreen.SetActive(false);
         game_state = GameState.MAZE;
         GameEndScreen.SetActive(false);
-        StartMaze(current_round);
+        StartMaze((current_round + 1));
     }
     void GoToScoring() {
         
