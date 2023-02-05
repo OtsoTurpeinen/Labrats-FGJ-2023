@@ -81,12 +81,13 @@ public class DraftController : MonoBehaviour
     {
         Player candidate = GameController.Instance.players.First();
 
-        bool allDrafted = false;
+        bool allDrafted = true;
+        bool oneOrMoreLeft = false;
         foreach (var player in GameController.Instance.players)
         {
-            allDrafted = true;
             if (!player.already_drafted)
             {
+                allDrafted = false;
                 if (player.OverallScore >= currentDrafter.OverallScore)
                 {            
                     if (candidate.OverallScore >= player.OverallScore)
@@ -99,6 +100,7 @@ public class DraftController : MonoBehaviour
         }
 
         currentDrafter.my_ratUI.DisableRat();
+        currentDrafter.already_drafted = true;
         if (allDrafted)
         {
             foreach (var rat in PlayerRatUIs)
@@ -109,7 +111,6 @@ public class DraftController : MonoBehaviour
         }
         currentDrafter = candidate;
         currentDrafter.my_ratUI.HighlightRat();
-        currentDrafter.already_drafted = true;
 
     }
     

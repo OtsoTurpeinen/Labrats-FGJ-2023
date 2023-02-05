@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
     }
 
     public void StartDraft(int round) {
-        //draftController
+        draftController.StartDraft();
 //        FindFirstObjectByType<DraftController>().InitializeDraft(round);
     }
 
@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour
     public void RatReachedMazeEnd(int index, GameObject rat) {
         if (!players[index].reached_maze_end) {
             players[index].reached_maze_end = true;
-            int score = MAX_PLAYERS;
+            int score = MAX_PLAYERS+1;
             foreach (Player player in players)
             {
                 if (player.reached_maze_end)
@@ -108,7 +108,12 @@ public class GameController : MonoBehaviour
             }
             Destroy(rat);
             players[index].AddScore(score);
-            if (score <= 1) GameLoopStep();
+            Debug.Log("Scored points! " + score);
+            if (score <= 1)
+            {
+                Debug.Log("About to step gameloop " + game_state);
+                GameLoopStep();
+            }
         }
     }
 
@@ -122,6 +127,7 @@ public class GameController : MonoBehaviour
                 GoToScoring();
                 break;
             case GameState.SCORING:
+                Debug.Log("Moving to scoring!");
                 if (current_round < MAX_ROUNDS) {
                     GoToDraft();
                 } else {
