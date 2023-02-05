@@ -38,9 +38,11 @@ public class Player
     }
 
     public void NextGeneration(List<RatGene> b) {
-        roots.Add(my_rat_genes);
-        List<RatGene> a = new List<RatGene>(my_rat_genes);
+        roots.Add(my_rat_genetics.GetGenes());
+        List<RatGene> a = new List<RatGene>(my_rat_genetics.GetGenes());
+        Debug.Log("My rat genes: " + my_rat_genetics.GetGenes().Count);
         my_rat_genes = new List<RatGene>();
+        Debug.Log("Gene pool A: " + a.Count);
         for (int i = 0; i < a.Count; i++)
         {
             float f = Random.value * (a[i].likelyhood + b[i].likelyhood) - a[i].likelyhood;
@@ -52,6 +54,9 @@ public class Player
                 Debug.Log("Added Gene " + b[i].fancy_name + " with likelyhood " + b[i].likelyhood);
             }
         }
+        Debug.Log("NEW RAT HAS GENES: " + my_rat_genes.Count);
+        my_rat_genetics.BuildFromList(my_rat_genes);
+        my_ratUI.DisplayData(my_rat_genetics);
     }
 
     public void AddScore(int i)
