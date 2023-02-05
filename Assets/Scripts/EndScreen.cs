@@ -18,7 +18,9 @@ public class EndScreen : MonoBehaviour
     public void SetupWinner(Player winner) {
         this.winner = winner;
 
+        Debug.Log(winner.Name);
 
+        //first.SetNameAndColor()
         first.DisplayData(winner.roots[0]);
         first.RatName.text = winner.Name;
         first.RatImage.color = winner.color;

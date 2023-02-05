@@ -74,6 +74,11 @@ public class RatUIController : MonoBehaviour
         Gene5.AddGeneData(genetics.GetGene(4));
     }
 
+    public void SetNameAndColor(string name, Color color) {
+        RatName.text = name;
+        RatImage.color = color;
+    }
+
     public void DisableRat()
     {
         FadeOut.SetActive(true);

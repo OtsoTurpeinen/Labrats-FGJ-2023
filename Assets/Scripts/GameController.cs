@@ -208,6 +208,7 @@ public class GameController : MonoBehaviour
         List<Player> orderedList = players.OrderByDescending(x => x.OverallScore).ToList();
         GameEndScreen.SetActive(true);
         EndScreen endScreen = GameEndScreen.GetComponent<EndScreen>();
+        endScreen.SetupWinner(orderedList[0]);
         
 
     }
