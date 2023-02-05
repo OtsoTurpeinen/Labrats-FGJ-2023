@@ -74,18 +74,24 @@ public class MazeBehaviourScript : MonoBehaviour
             string upperLine = lines[i];
             string sideLine = lines[i + 1];
 
+            Debug.Log("Line: " + i);
+
             x = 0;
 
             // Upper walls
             for (int j = 0; j < upperLine.Length; j+=2)
             {
-                string firstChar = upperLine.Substring(j, 1);
-                string secondChar = upperLine.Substring(j + 1, 1);
-
-                if (secondChar == "-")
+                if (j + 1 < upperLine.Length)
                 {
-                    // //Debug.Log("Add north wall: " + x + ", " + y);
-                    this.addWall(x, y, DIRECTION_NORTH);
+                    string firstChar = upperLine.Substring(j, 1);
+                    string secondChar = upperLine.Substring(j + 1, 1);
+
+                    if (secondChar == "-")
+                    {
+                        // Debug.Log("Add north wall: " + x + ", " + y);
+                        this.addWall(x, y, DIRECTION_NORTH);
+                    }
+
                 }
 
                 x++;
@@ -95,13 +101,16 @@ public class MazeBehaviourScript : MonoBehaviour
 
             for (int j = 0; j < sideLine.Length; j+= 2 )
             {
-                string firstChar = sideLine.Substring(j, 1);
-                string secondChar = sideLine.Substring(j + 1, 1);
-
-                if (firstChar == "I")
+                if (j + 1 < sideLine.Length)
                 {
-                    // //Debug.Log("Add west wall: " + x + ", " + y);
-                    this.addWall(x, y, DIRECTION_WEST);
+                    string firstChar = sideLine.Substring(j, 1);
+                    string secondChar = sideLine.Substring(j + 1, 1);
+
+                    if (firstChar == "I")
+                    {
+                        // Debug.Log("Add west wall: " + x + ", " + y);
+                        this.addWall(x, y, DIRECTION_WEST);
+                    }
                 }
 
                 x++;
