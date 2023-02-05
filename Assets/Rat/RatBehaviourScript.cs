@@ -101,8 +101,10 @@ public class RatBehaviourScript : MonoBehaviour
         }
     }
 
-    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight,int playerId, RatGenetics genetics) {
+    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight,int playerId, RatGenetics genetics,Color color) {
         this.genetics = new RatGenetics(genetics.current_genes);
+        SpriteRenderer spr = GetComponentInChildren<SpriteRenderer>() as SpriteRenderer;
+        spr.color = color;
         this.playerId = playerId;
         this.x = x;
         this.y = y;
