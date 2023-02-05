@@ -187,7 +187,7 @@ public class RatBehaviourScript : MonoBehaviour
 
             // Move if we have same direction
             if (this.direction == moveDirection) {
-                waitTime = 1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED);
+                waitTime = Mathf.Max(2.0f,Mathf.Max(0.0f,1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
 
                //  Debug.Log("Moving...");
 
@@ -216,7 +216,7 @@ public class RatBehaviourScript : MonoBehaviour
             else {
                 // Instant turning for now, for one second delay
                 this.animator.SetInteger("direction",moveDirection);
-                waitTime = 1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE);
+                waitTime = Mathf.Max(2.0f,Mathf.Max(0.0f,1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE)));
                 this.direction = moveDirection;
             }
 
