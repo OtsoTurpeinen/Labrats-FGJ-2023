@@ -80,12 +80,20 @@ public class DraftController : MonoBehaviour
     public void FindNextPlayerInOrder()
     {
         Player candidate = GameController.Instance.players.First();
-        if (currentDrafter == candidate) candidate = GameController.Instance.players.Last();
 
+        if (candidate.already_drafted)
+        {
+            foreach (var p in GameController.Instance.players)
+            {
+                if (!p.already_drafted) candidate = p;
+            }
+        }
+        
         bool allDrafted = true;
         bool oneOrMoreLeft = false;
         foreach (var player in GameController.Instance.players)
         {
+            if (candidate.already_drafted && !player.already_drafted) candidate = player;  
             if (!player.already_drafted)
             {
                 allDrafted = false;

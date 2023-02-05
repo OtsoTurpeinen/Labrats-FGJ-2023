@@ -96,6 +96,7 @@ public class GameController : MonoBehaviour
     }
 
     public void RatReachedMazeEnd(int index, GameObject rat) {
+        Debug.Log("Rat reached maze end! " + index);
         if (!players[index].reached_maze_end) {
             players[index].reached_maze_end = true;
             int score = MAX_PLAYERS+1;
@@ -121,13 +122,15 @@ public class GameController : MonoBehaviour
         switch (game_state)
         {
             case GameState.NOT_STARTED:
+                Debug.Log("GAMESTATE Start->maze");
                 GoToMaze();
                 break;
             case GameState.MAZE:
+                Debug.Log("GAMESTATE Scoring");
                 GoToScoring();
                 break;
             case GameState.SCORING:
-                Debug.Log("Moving to scoring!");
+                Debug.Log("GAMESTATE Drafting");
                 if (current_round < MAX_ROUNDS) {
                     GoToDraft();
                 } else {
@@ -135,6 +138,7 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case GameState.DRAFT:
+                Debug.Log("GAMESTATE Maze");
                 GoToMaze();
                 break;
             case GameState.GAME_END:
