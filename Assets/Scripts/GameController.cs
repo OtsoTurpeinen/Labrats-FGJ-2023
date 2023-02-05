@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
     const int MAX_PLAYERS = 6;
     const int MAX_ROUNDS = 10;
     public int current_round = 0;
+
+    public int selected_player_count = 1;
     public GameState game_state;
     public List<Player> players;
     public List<RatUIController> RatUiControllers; //Set in editor, references to the ratUIs in the bottom of the screen

@@ -4,5 +4,5 @@
 /UserSettings
 /Library
 .vscode
-Assembly-CSharp.csproj
+*.csproj
 *.cache

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18029127, g: 0.22572401, b: 0.3069303, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,8 +158,9 @@ MonoBehaviour:
   GameEndScreen: {fileID: 954010610}
   scoreController: {fileID: 807018205}
   draftController: {fileID: 0}
-  ratPrefab: {fileID: 0}
+  ratPrefab: {fileID: 2611405125838176661, guid: dfc3ec63e89096649a87f0c46cd71ed7, type: 3}
   current_round: 0
+  selected_player_count: 1
   game_state: 0
   RatUiControllers:
   - {fileID: 1113458783}

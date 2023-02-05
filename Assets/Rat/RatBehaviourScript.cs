@@ -7,6 +7,22 @@ using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 using static UnityEditor.FilePathAttribute;
 
+static class MyExtensions
+{
+public static void Shuffle<T>(this IList<T> list)
+{
+    int n = list.Count;
+    while (n > 1)
+    {
+    n--;
+    int k = Random.Range(0,n + 1);
+    T value = list[k];
+    list[k] = list[n];
+    list[n] = value;
+    }
+}
+}
+
 public class RatBehaviourScript : MonoBehaviour
 {
     public float x; // Grid coordinates
@@ -256,9 +272,12 @@ public class RatBehaviourScript : MonoBehaviour
         winningDirection.firstJunction = new Vector3(0.0f, 0.0f, 0.0f);
 
         // Loop through the directions
-        for (int i = 1; i < 5; i++) 
+        List<int> directions = new List<int> {
+            1,2,3,4
+        };
+        directions.Shuffle();
+        foreach (int i in directions)
         {
-
             int junctions = 0;
             int deadend = 0;
             int distance = 0;
