@@ -224,7 +224,7 @@ MonoBehaviour:
   wallPrefabVertical: {fileID: 1734543301093404127, guid: 0141a2c9c29903d46ab3246ff6a675da, type: 3}
   startPrefab: {fileID: 9045194701505693803, guid: 75ac9125e79cc124a93f94ec8c67b56d, type: 3}
   finishPrefab: {fileID: 2730958142346059242, guid: 1bea6dcd60d1ff944a35f3e88e464102, type: 3}
-  mapNum: 3
+  mapNum: 2
 --- !u!4 &236744502
 Transform:
   m_ObjectHideFlags: 0

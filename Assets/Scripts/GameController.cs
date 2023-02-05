@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void RatReachedMazeEnd(int index) {
+    public void RatReachedMazeEnd(int index, GameObject rat) {
         if (!players[index].reached_maze_end) {
             players[index].reached_maze_end = true;
             int score = MAX_PLAYERS;
@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour
                     score--;
                 }
             }
-
+            Destroy(rat);
             players[index].AddScore(score);
             if (score <= 1) GameLoopStep();
         }

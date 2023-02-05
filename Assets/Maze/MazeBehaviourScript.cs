@@ -115,7 +115,7 @@ public class MazeBehaviourScript : MonoBehaviour
 
 
     public void InitializeMaze(int id) {
-
+        this.started = false;
         // Tile 1 = start, 2 = finish
         this.mazeTile = new int[mazeHeight, mazeWidth]; // Enumerable.Range(this.mazeWidth, this.mazeHeight).ToArray();
         this.mazeWallHorizontal = new int[(mazeHeight + 1),(mazeWidth + 1)];
@@ -362,6 +362,7 @@ public class MazeBehaviourScript : MonoBehaviour
     public bool canMove(int x1, int y1, int direction) {
 
         bool movePossible = true;
+        if (x1 < 0 || x1 >= mazeWidth || y1 < 0 || y1 >= mazeHeight) return false;
 
         if (direction == DIRECTION_NORTH) {
             movePossible = (this.mazeWallVertical[y1, x1] == 0);

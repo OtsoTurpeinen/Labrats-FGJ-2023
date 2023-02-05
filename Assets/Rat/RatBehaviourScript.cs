@@ -148,6 +148,9 @@ public class RatBehaviourScript : MonoBehaviour
     }
 
     public void RatUpdate() {
+        if (this.raceFinished) return;
+        if (this.mazeScript == null) return;
+        if (!this.mazeScript.started) return;
 
         // If rat needs to move, it does so but doesnt think while doing so
         RatMovement();
@@ -216,7 +219,6 @@ public class RatBehaviourScript : MonoBehaviour
     }
 
     public void RatDecision() {
-
         // 1. Do we see the ending point? If so, go there. Or if we are already there!
         Vector3 finishPos = mazeScript.getFinishPosition();
 
@@ -224,11 +226,12 @@ public class RatBehaviourScript : MonoBehaviour
 
         if ((int)this.x == (int)finishPos.x && (int)this.y == (int)finishPos.y) {
 
+
             this.raceFinished = true;
 
-            GameController.Instance.RatReachedMazeEnd(playerId);
-
-            //Debug.Log("RACE FINISHED!!!");
+            Debug.Log("RACE FINISHED!!!");
+            GameController.Instance.RatReachedMazeEnd(playerId,gameObject);
+            Debug.Log("Informed game controller!!");
         }
 
         bool canSeeFinish = mazeScript.isStraightLine((int)this.x, (int)this.y, (int)finishPos.x, (int)finishPos.y);
@@ -262,7 +265,6 @@ public class RatBehaviourScript : MonoBehaviour
 
     public void FindDirection(int comingFrom)
     {
-
         DirectionScan winningDirection;
 
         winningDirection.distance = 999;
