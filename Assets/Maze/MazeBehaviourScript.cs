@@ -47,7 +47,9 @@ public class MazeBehaviourScript : MonoBehaviour
         Transform[] children = GetComponentsInChildren<Transform>();
         foreach (var child in children)
         {
-            Destroy(child.gameObject);
+            if (child != transform) {
+                Destroy(child.gameObject);
+            }
         }
     }
     private string LoadMapFile(string txtFilePath)
