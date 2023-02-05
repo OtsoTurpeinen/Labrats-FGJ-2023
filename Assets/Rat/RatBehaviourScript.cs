@@ -51,6 +51,8 @@ public class RatBehaviourScript : MonoBehaviour
     GameObject mazeObject;
     MazeBehaviourScript mazeScript;
 
+    public RatGenetics genetics;
+
     Animator animator;
 
     public struct DirectionScan
@@ -99,7 +101,8 @@ public class RatBehaviourScript : MonoBehaviour
         }
     }
 
-    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight,int playerId) {
+    public void InitializeRat(float x, float y, MazeBehaviourScript mazeScript, int mazeWidth, int mazeHeight,int playerId, RatGenetics genetics) {
+        this.genetics = new RatGenetics(genetics.current_genes);
         this.playerId = playerId;
         this.x = x;
         this.y = y;
@@ -182,6 +185,7 @@ public class RatBehaviourScript : MonoBehaviour
 
             // Move if we have same direction
             if (this.direction == moveDirection) {
+                waitTime = 1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED);
 
                //  Debug.Log("Moving...");
 
@@ -210,6 +214,7 @@ public class RatBehaviourScript : MonoBehaviour
             else {
                 // Instant turning for now, for one second delay
                 this.animator.SetInteger("direction",moveDirection);
+                waitTime = 1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE);
                 this.direction = moveDirection;
             }
 

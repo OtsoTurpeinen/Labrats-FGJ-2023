@@ -90,7 +90,7 @@ public class GameController : MonoBehaviour
 
         RatBehaviourScript ratScript = ratObject.GetComponent<RatBehaviourScript>();
         if (ratScript != null) {
-            ratScript.InitializeRat(x, y, maze, maze.mazeWidth, maze.mazeHeight,i);
+            ratScript.InitializeRat(x, y, maze, maze.mazeWidth, maze.mazeHeight,i,players[i].my_rat_genetics);
         }
 
     }
