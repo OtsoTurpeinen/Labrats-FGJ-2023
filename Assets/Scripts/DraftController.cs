@@ -71,25 +71,23 @@ public class DraftController : MonoBehaviour
 
     public void OnClick(int value)
     {
-        Debug.Log(DraftRats[value].GetGenes().Count);
-        currentDrafter.my_rat_genetics.Mix(DraftRats[value].GetGenes());
+        currentDrafter.NextGeneration(DraftRats[value].GetGenes());
         DraftRatUIs[value].DisableRat();
         currentDrafter.already_drafted = true;
-        FindNextPlayerInOrder();
-
-        
+        FindNextPlayerInOrder();   
     }
 
     public void FindNextPlayerInOrder()
     {
         Player candidate = GameController.Instance.players.First();
 
-        bool allDrafted = false;
+        bool allDrafted = true;
+        bool oneOrMoreLeft = false;
         foreach (var player in GameController.Instance.players)
         {
-            allDrafted = true;
             if (!player.already_drafted)
             {
+                allDrafted = false;
                 if (player.OverallScore >= currentDrafter.OverallScore)
                 {            
                     if (candidate.OverallScore >= player.OverallScore)
@@ -101,14 +99,18 @@ public class DraftController : MonoBehaviour
             
         }
 
+        currentDrafter.my_ratUI.DisableRat();
+        currentDrafter.already_drafted = true;
         if (allDrafted)
         {
-            //TODO: Move to maze running phase
+            foreach (var rat in PlayerRatUIs)
+            {
+                rat.UndisableRat();
+            }
+            GameController.Instance.GameLoopStep();
         }
-        currentDrafter.my_ratUI.DisableRat();
         currentDrafter = candidate;
         currentDrafter.my_ratUI.HighlightRat();
-        currentDrafter.already_drafted = true;
 
     }
     

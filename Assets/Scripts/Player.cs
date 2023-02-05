@@ -43,11 +43,13 @@ public class Player
         my_rat_genes = new List<RatGene>();
         for (int i = 0; i < a.Count; i++)
         {
-            float f = Random.value * (a[i].likelyhood + a[i].likelyhood) - a[i].likelyhood;
+            float f = Random.value * (a[i].likelyhood + b[i].likelyhood) - a[i].likelyhood;
             if (f < 0.0f) {
                 my_rat_genes.Add(a[i]);
+                Debug.Log("Added Gene " + a[i].fancy_name + " with likelyhood " + a[i].likelyhood);
             } else {
-                my_rat_genes.Add(a[i]);
+                my_rat_genes.Add(b[i]);
+                Debug.Log("Added Gene " + b[i].fancy_name + " with likelyhood " + b[i].likelyhood);
             }
         }
     }
