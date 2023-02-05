@@ -150,7 +150,7 @@ public class RatBehaviourScript : MonoBehaviour
 
         // Debug.Log("Add x: " + x + ", y: " + y + " =" + (int)this.x + "," + (int)this.y);
 
-        this.gameObject.transform.position = new Vector3(posX, 0.0f, posY); //  this.gameObject.transform.position.z);
+        this.gameObject.transform.position = new Vector3(posX, 0.25f, posY); //  this.gameObject.transform.position.z);
 
     }
 
@@ -282,11 +282,29 @@ public class RatBehaviourScript : MonoBehaviour
         winningDirection.direction = MazeBehaviourScript.DIRECTION_NONE;
         winningDirection.firstJunction = new Vector3(0.0f, 0.0f, 0.0f);
 
+        float smartsStat = this.genetics.GetStats().pathing;
+        int intelligence = (int)((smartsStat + 1) * 50);
+        if (intelligence < 55) { intelligence = 55; }
+        if (intelligence > 85) { intelligence = 85; }
+
+        Debug.Log("Effective smarts stat: " + intelligence);
+
+        int intRoll = Random.Range(0, 100);
+        bool smartCheckPassed = true;
+        List<DirectionScan> randomDirections = new List<DirectionScan>();
+
+        if (intRoll > intelligence)
+        {
+            smartCheckPassed = false;
+        }
+
         // Loop through the directions
         List<int> directions = new List<int> {
             1,2,3,4
         };
+
         directions.Shuffle();
+
         foreach (int i in directions)
         {
             int junctions = 0;
@@ -320,6 +338,9 @@ public class RatBehaviourScript : MonoBehaviour
                         scanX += (int)moveBonus.x;
                         scanY += (int)moveBonus.y;
 
+                        // Is there an old node here?
+                        RouteNode existingNode = getNodeByLocation(new Vector3(scanX, scanY, 0.0f));
+
                         int ways = 0;
                         bool canGoForward = false;
 
@@ -352,7 +373,8 @@ public class RatBehaviourScript : MonoBehaviour
                         // First junction is saved
                         // Debug.Log("Scan: " + scanX + ", " + scanY + ", Ways: " + ways);
 
-                        if (ways > 1) // more ways then one
+                        // If there is old node here (first node most likely), mark it as blocker
+                        if (ways > 1 || existingNode.id > 0) // more ways then one
                         {
                             junctions++;
 
@@ -385,6 +407,12 @@ public class RatBehaviourScript : MonoBehaviour
 
                 } // while move
 
+                if (distance == 0)
+                {
+                    Debug.Log("Cant move to direction: " + direction + ", Dead end marked!");
+                    deadend = 1;
+                }
+
                 bool thisWins = false;
 
                 if (deadend == 0)
@@ -398,9 +426,11 @@ public class RatBehaviourScript : MonoBehaviour
                     {
                         thisWins = true;
                     }
+
                 }
 
                 // Add closest junctions into new nodes
+                bool oldNodePreventMove = false;
 
                 RouteNode oldNode = getNodeByLocation(closestJunction);
                 if (oldNode.id <= 0) {
@@ -414,8 +444,22 @@ public class RatBehaviourScript : MonoBehaviour
                 {
                     if (oldNode.visited) {
                         thisWins = false;
+                        oldNodePreventMove = true;
                     }
 
+                }
+
+                // If smart check is not passed and this route is otherwise valid, add this direction to random directions
+                if (!smartCheckPassed && deadend == 0 && !oldNodePreventMove)
+                {
+                    DirectionScan randomDirection = new DirectionScan();
+                    randomDirection.direction = direction;
+                    randomDirection.firstJunction = closestJunction;
+                    randomDirection.distance = distance;
+                    randomDirection.deadend = deadend;
+                    randomDirection.junctions = junctions;
+
+                    randomDirections.Add(randomDirection);
                 }
 
                 if (thisWins)
@@ -434,6 +478,25 @@ public class RatBehaviourScript : MonoBehaviour
             }
 
         } // Direction loop
+
+        // Failing smarts check will give you random direction instead of the best one
+        if (!smartCheckPassed && randomDirections.Count > 0)
+        {
+            Debug.Log("Random options: " + randomDirections.Count);
+
+            int randomDirectionNum = Random.Range(0, randomDirections.Count);
+
+            Debug.Log("Random direction: " + randomDirectionNum);
+
+            winningDirection.direction = randomDirections[randomDirectionNum].direction;
+            winningDirection.firstJunction = randomDirections[randomDirectionNum].firstJunction;
+            winningDirection.distance = randomDirections[randomDirectionNum].distance;
+            winningDirection.deadend = randomDirections[randomDirectionNum].deadend;
+            winningDirection.junctions = randomDirections[randomDirectionNum].junctions;
+
+            Debug.Log("Random Direction " + winningDirection.direction + " wins for now!");
+            Debug.Log("Random Distance: " + winningDirection.distance + ", Deadend: " + winningDirection.deadend + ", Junctions: " + winningDirection.junctions);
+        }
 
         // Winner direction and set target
         if (winningDirection.distance < 999 && winningDirection.junctions > 0)
