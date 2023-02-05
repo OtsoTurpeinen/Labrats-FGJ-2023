@@ -22,7 +22,7 @@ public class ScoreController : MonoBehaviour
 
     public void UpdateOverallScores(List<Player> players)
     {
-        List<Player> orderedList = players.OrderBy(x => x.OverallScore).ToList();
+        List<Player> orderedList = players.OrderByDescending(x => x.OverallScore).ToList();
         for (int i = 0; i < orderedList.Count; i++)
         {
             Scores[i].ScoreText.text = orderedList[i].OverallScore + "";
