@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab1ed237a3d9809181b09f880815520, type: 3}
   m_Name: Bulky
   m_EditorClassIdentifier: 
-  fancy_name: Sanic
+  fancy_name: Bulky
   type: 1
   value: -0.5
   likelyhood: 1
