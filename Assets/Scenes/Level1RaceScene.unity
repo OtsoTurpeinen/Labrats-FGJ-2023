@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18029127, g: 0.22572401, b: 0.3069303, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,13 +159,26 @@ MonoBehaviour:
   scoreController: {fileID: 807018205}
   draftController: {fileID: 1301339552}
   genePool:
-  - {fileID: 11400000, guid: 2b6130005cbabc79ba60d4148fbd43e3, type: 2}
-  - {fileID: 11400000, guid: fda53869cf276a5a58706bde1c5c14dc, type: 2}
+  - {fileID: 11400000, guid: f403b34c5c5f94542bb755463018213d, type: 2}
+  - {fileID: 11400000, guid: ef905435a6940bf4aaa660ef413f9756, type: 2}
+  - {fileID: 11400000, guid: 973e8a6af11173e43a991831f5800b0a, type: 2}
   - {fileID: 11400000, guid: 361078f84ddaf2f28878243c814061d3, type: 2}
+  - {fileID: 11400000, guid: aed12b6ed9844a54ebe6cb43a033cfc8, type: 2}
+  - {fileID: 11400000, guid: 2b6130005cbabc79ba60d4148fbd43e3, type: 2}
+  - {fileID: 11400000, guid: 1d815fd152c0e2440b5a3af70ea3f43a, type: 2}
+  - {fileID: 11400000, guid: fda53869cf276a5a58706bde1c5c14dc, type: 2}
+  - {fileID: 11400000, guid: 4af01129a6f03044d8d7924f089bcfcb, type: 2}
+  - {fileID: 11400000, guid: 5f6251cdf743ac14ebeb853d77bc5ed5, type: 2}
   - {fileID: 11400000, guid: 02b3628de18d2143ab26c370882045a2, type: 2}
   - {fileID: 11400000, guid: 6bf23e6444399463dbe5927e5a8f47a3, type: 2}
   - {fileID: 11400000, guid: a459f615148e4bfefbb68f095a18e74c, type: 2}
+  - {fileID: 11400000, guid: 1b322a2336c6ef94b904821972f8f0cf, type: 2}
   - {fileID: 11400000, guid: 7ff6e9e912c26559cacf858e37d95543, type: 2}
+  - {fileID: 11400000, guid: 9e56e7322645bae4f959a06d0288959e, type: 2}
+  - {fileID: 11400000, guid: 2b7e14cc0359c8f4c8e60a9ffabe20bb, type: 2}
+  - {fileID: 11400000, guid: bf9de1accc7443847a0263f587cdaebf, type: 2}
+  - {fileID: 11400000, guid: a6bd44b9a05c280418ea2048cbf9ae56, type: 2}
+  - {fileID: 11400000, guid: 3dec4b56bc66e124b90a5665d52cbac0, type: 2}
   ratPrefab: {fileID: 2611405125838176661, guid: dfc3ec63e89096649a87f0c46cd71ed7, type: 3}
   current_round: 0
   selected_player_count: 6

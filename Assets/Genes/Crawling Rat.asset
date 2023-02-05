@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fancy_name: Crawling Rat
   type: 0
-  value: -5
+  value: -3
   likelyhood: 0.5
   perk: 0

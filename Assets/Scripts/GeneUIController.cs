@@ -8,7 +8,8 @@ public class GeneUIController : MonoBehaviour
 {
 
     public TextMeshProUGUI NameText;
-    public Slider LikelyhoodBar; 
+    public Slider LikelyhoodBar;
+    public TextMeshProUGUI EffectText;
 
     [SerializeField]
     Image likelyhoodColor;
@@ -36,5 +37,20 @@ public class GeneUIController : MonoBehaviour
         gene_type = gene.type;
         gene_perk = gene.perk;
         likelyhoodColor.color = (gene_value > 0.0f)?Color.green:Color.red;
+
+        EffectText.text = "";
+        switch (gene_type)
+        {
+                case GeneticType.FORWARD_SPEED:
+                    EffectText.text = "Speed " + gene.value;
+                    break;
+                case GeneticType.TURN_RATE:
+                    EffectText.text = "Agility " + gene.value;
+                    break;
+                case GeneticType.PATHING:
+                    EffectText.text = "Intellect " + gene.value;
+                    break;
+        }
     }
+    
 }

@@ -15,5 +15,5 @@ MonoBehaviour:
   fancy_name: Amputated Leg
   type: 0
   value: -10
-  likelyhood: 0.2
+  likelyhood: 0.1
   perk: 0

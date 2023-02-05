@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fancy_name: Zoomer
   type: 0
-  value: 8
+  value: 3
   likelyhood: 0.75
   perk: 0
