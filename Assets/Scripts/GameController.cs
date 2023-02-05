@@ -19,7 +19,11 @@ public class GameController : MonoBehaviour
     GameObject DraftScreen;
     [SerializeField]
     GameObject MazeScreen;
-
+    [SerializeField]
+    GameObject GameEndScreen;
+    
+    public ScoreController scoreController;
+    public DraftController draftController;
 
     public static GameController Instance { get; private set; }
     
@@ -29,6 +33,7 @@ public class GameController : MonoBehaviour
     public int current_round = 0;
     public GameState game_state;
     public List<Player> players;
+    public List<RatUIController> RatUiControllers; //Set in editor, references to the ratUIs in the bottom of the screen
     void Start()
     {
         current_round = 0;
@@ -46,7 +51,8 @@ public class GameController : MonoBehaviour
     public void StartGame(int human_players) {
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
-            players[i].Init(i < human_players);
+            //is player human + reference to RatUiController for the player/rat
+            players[i].Init(i < human_players, RatUiControllers[i]);
         }
     }
 
@@ -70,6 +76,7 @@ public class GameController : MonoBehaviour
     }
 
     public void StartDraft(int round) {
+        //draftController
 //        FindFirstObjectByType<DraftController>().InitializeDraft(round);
     }
 
@@ -89,13 +96,17 @@ public class GameController : MonoBehaviour
     public void RatReachedMazeEnd(int index) {
         if (!players[index].reached_maze_end) {
             players[index].reached_maze_end = true;
+            int score = MAX_PLAYERS;
             foreach (Player player in players)
             {
-                if (!player.reached_maze_end) {
-                    return;
+                if (player.reached_maze_end)
+                {
+                    score--;
                 }
             }
-            GameLoopStep();
+
+            players[index].AddScore(score);
+            if (score <= 1) GameLoopStep();
         }
     }
 
@@ -131,30 +142,35 @@ public class GameController : MonoBehaviour
 
     void GoToMaze() {
         DraftScreen.SetActive(false);
-        MazeScreen.SetActive(true);
+        //MazeScreen.SetActive(true);
         ScoreScreen.SetActive(false);
         game_state = GameState.MAZE;
+        GameEndScreen.SetActive(false);
         StartMaze(current_round);
     }
     void GoToScoring() {
         DraftScreen.SetActive(false);
-        MazeScreen.SetActive(false);
+        //MazeScreen.SetActive(false);
         ScoreScreen.SetActive(true);
+        GameEndScreen.SetActive(false);
         game_state = GameState.SCORING;
-        
+
+        ScoreScreen.GetComponent<ScoreController>().UpdateOverallScores(players);
+        GameLoopStep();
     }
     void GoToDraft() {
         current_round += 1;
         DraftScreen.SetActive(true);
-        MazeScreen.SetActive(false);
-        ScoreScreen.SetActive(false);
+        //MazeScreen.SetActive(false);
+        ScoreScreen.SetActive(true);
+        GameEndScreen.SetActive(false);
         game_state = GameState.DRAFT;
         StartDraft(current_round);
         
     }
     void GoToGameEnd() {
         game_state = GameState.GAME_END;
-        GameLoopStep();
+        GameEndScreen.SetActive(true);
     }
     void GoToMainMenu() {
         game_state = GameState.NOT_STARTED;

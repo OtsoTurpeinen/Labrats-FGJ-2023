@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player
 {
     public bool is_human = false;
-    public int score = 0;
+    //public int score = 0;
     public bool draft_active = false;
     public List<RatGene> my_rat_genes;
     public RatGenetics my_rat_genetics;
@@ -13,24 +13,28 @@ public class Player
     public List<List<RatGene>> roots;
     public RatUIController my_ratUI;
     public bool already_drafted;
+    public Color color;
+    public string Name;
+    public int LastAddedScore;
+    public int OverallScore;
 
     public bool reached_maze_end = false;
 
-    public void Init(bool bHuman) {
+    public void Init(bool bHuman, RatUIController ratController) {
         is_human = bHuman;
-        score = 0;
+        OverallScore = 0;
+        LastAddedScore = 0;
         draft_active = false;
         my_rat_genes = new List<RatGene>();
         my_rat = null;
         roots = new List<List<RatGene>>();
-        /*
-        float tempScore = Random.value * 10f;
-        score = (int) tempScore;
-        Debug.Log(score);
-        */
+
         my_rat_genetics = new RatGenetics();
         my_rat_genetics.GenerateRandom(5);
         already_drafted = false;
+        my_ratUI = ratController;
+        color = ratController.RatImage.color;
+        Name = ratController.RatName.text;
     }
 
     public void NextGeneration(List<RatGene> b) {
@@ -46,5 +50,11 @@ public class Player
                 my_rat_genes.Add(a[i]);
             }
         }
+    }
+
+    public void AddScore(int i)
+    {
+        LastAddedScore = i;
+        OverallScore += i;
     }
 }
