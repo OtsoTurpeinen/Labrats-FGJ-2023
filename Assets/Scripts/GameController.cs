@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
     
     public GameObject ratPrefab;
     const int MAX_PLAYERS = 6;
-    const int MAX_ROUNDS = 10;
+    const int MAX_ROUNDS = 3;
     public int current_round = 0;
 
     public int selected_player_count = 1;
@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
     }
 
     public void RatReachedMazeEnd(int index, GameObject rat) {
-        Debug.Log("Rat reached maze end! " + index);
+        //Debug.Log("Rat reached maze end! " + index);
         if (!players[index].reached_maze_end) {
             players[index].reached_maze_end = true;
             int score = MAX_PLAYERS+1;
@@ -124,10 +124,10 @@ public class GameController : MonoBehaviour
             }
             Destroy(rat);
             players[index].AddScore(score);
-            Debug.Log("Scored points! " + score);
+            //Debug.Log("Scored points! " + score);
             if (score <= 1)
             {
-                Debug.Log("About to step gameloop " + game_state);
+                //Debug.Log("About to step gameloop " + game_state);
                 foreach (var p in players)
                 {
                     p.reached_maze_end = false;
@@ -141,15 +141,15 @@ public class GameController : MonoBehaviour
         switch (game_state)
         {
             case GameState.NOT_STARTED:
-                Debug.Log("GAMESTATE Start->maze");
+                //Debug.Log("GAMESTATE Start->maze");
                 GoToMaze();
                 break;
             case GameState.MAZE:
-                Debug.Log("GAMESTATE Scoring");
+                //Debug.Log("GAMESTATE Scoring");
                 GoToScoring();
                 break;
             case GameState.SCORING:
-                Debug.Log("GAMESTATE Drafting");
+                //Debug.Log("GAMESTATE Drafting");
                 if (current_round < MAX_ROUNDS) {
                     GoToDraft();
                 } else {
@@ -157,7 +157,7 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case GameState.DRAFT:
-                Debug.Log("GAMESTATE Maze");
+                //Debug.Log("GAMESTATE Maze");
                 GoToMaze();
                 break;
             case GameState.GAME_END:
