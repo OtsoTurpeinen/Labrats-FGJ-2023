@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ab1ed237a3d9809181b09f880815520, type: 3}
-  m_Name: Chad
+  m_Name: Spinner
   m_EditorClassIdentifier: 
-  fancy_name: Chad
-  type: 0
-  value: 1
-  likelyhood: 2
+  fancy_name: Spinner
+  type: 1
+  value: 5
+  likelyhood: 0.4
   perk: 0

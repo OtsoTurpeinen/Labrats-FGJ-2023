@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
     public ScoreController scoreController;
     public DraftController draftController;
 
+
+    public GeneScriptableObject[] genePool;
+
     public static GameController Instance { get; private set; }
     
     public GameObject ratPrefab;
@@ -67,6 +70,18 @@ public class GameController : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+
+    public RatGene GetRandomFromPool() {
+        GeneScriptableObject def = genePool[Random.Range(0,genePool.Length)];
+        RatGene gene = new RatGene();
+        gene.fancy_name = def.fancy_name;
+        gene.perk = def.perk;
+        gene.likelyhood = def.likelyhood;
+        gene.value = def.value;
+        gene.type = def.type;
+        return gene;
     }
 
     public void StartMaze(int maze_id) {
