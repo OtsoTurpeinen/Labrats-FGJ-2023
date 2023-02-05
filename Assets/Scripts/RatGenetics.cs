@@ -38,9 +38,12 @@ public struct RatStats
 
 public class RatGenetics
 {
-    List<RatGene> current_genes;
+    public List<RatGene> current_genes;
     public RatGenetics() {
         current_genes = new List<RatGene>();
+    }
+    public RatGenetics(List<RatGene> genes) {
+        current_genes = new List<RatGene>(genes);
     }
 
     public void AddGene(string name, GeneticType type,float value, float likelyhood, GeneticPerk perk) {

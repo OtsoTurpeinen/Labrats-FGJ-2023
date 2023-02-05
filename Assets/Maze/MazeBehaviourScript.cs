@@ -43,7 +43,14 @@ public class MazeBehaviourScript : MonoBehaviour
         //InitializeMaze(2);
     }
 
-    void CleanUpMaze() {
+    public void CleanUpMaze() {
+        Transform[] children = GetComponentsInChildren<Transform>();
+        foreach (var child in children)
+        {
+            if (child != transform) {
+                Destroy(child.gameObject);
+            }
+        }
     }
     private string LoadMapFile(string txtFilePath)
     {
