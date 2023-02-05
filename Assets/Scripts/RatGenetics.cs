@@ -55,6 +55,9 @@ public class RatGenetics
         gene.perk = perk;
         current_genes.Add(gene);
     }
+    public void AddGene(RatGene gene) {
+        current_genes.Add(gene);
+    }
 
     public float GetGeneValue(GeneticType type) {
         float n = 1.0f;
@@ -141,13 +144,16 @@ public class RatGenetics
     }
 
     public void GenerateRandom(int count) {
+        
         for (int i = 0; i < count; i++)
         {
-            GeneticType t = (GeneticType)Random.Range(0,(int)GeneticType.LAST);
+            
+            AddGene(GameController.Instance.GetRandomFromPool());
+/*             GeneticType t = (GeneticType)Random.Range(0,(int)GeneticType.LAST);
             float v = Random.value * 2.0f - 1.0f;
             float l = Random.value;
             GeneticPerk p = (GeneticPerk)Random.Range(0,(int)GeneticPerk.LAST);
-            AddGene("Random",t,v,l,p);
+            AddGene("Random",t,v,l,p); */
         }
     }
 

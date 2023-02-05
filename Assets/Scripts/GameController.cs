@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
     public ScoreController scoreController;
     public DraftController draftController;
 
+
+    public GeneScriptableObject[] genePool;
+
     public static GameController Instance { get; private set; }
     
     public GameObject ratPrefab;
@@ -69,6 +72,18 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
 
+
+    public RatGene GetRandomFromPool() {
+        GeneScriptableObject def = genePool[Random.Range(0,genePool.Length)];
+        RatGene gene = new RatGene();
+        gene.fancy_name = def.fancy_name;
+        gene.perk = def.perk;
+        gene.likelyhood = def.likelyhood;
+        gene.value = def.value;
+        gene.type = def.type;
+        return gene;
+    }
+
     public void StartMaze(int maze_id) {
         FindFirstObjectByType<MazeBehaviourScript>().InitializeMaze(maze_id);
         for (int i = 0; i < MAX_PLAYERS; i++)
@@ -96,6 +111,7 @@ public class GameController : MonoBehaviour
     }
 
     public void RatReachedMazeEnd(int index, GameObject rat) {
+        Debug.Log("Rat reached maze end! " + index);
         if (!players[index].reached_maze_end) {
             players[index].reached_maze_end = true;
             int score = MAX_PLAYERS+1;
@@ -112,6 +128,10 @@ public class GameController : MonoBehaviour
             if (score <= 1)
             {
                 Debug.Log("About to step gameloop " + game_state);
+                foreach (var p in players)
+                {
+                    p.reached_maze_end = false;
+                }
                 GameLoopStep();
             }
         }
@@ -121,13 +141,15 @@ public class GameController : MonoBehaviour
         switch (game_state)
         {
             case GameState.NOT_STARTED:
+                Debug.Log("GAMESTATE Start->maze");
                 GoToMaze();
                 break;
             case GameState.MAZE:
+                Debug.Log("GAMESTATE Scoring");
                 GoToScoring();
                 break;
             case GameState.SCORING:
-                Debug.Log("Moving to scoring!");
+                Debug.Log("GAMESTATE Drafting");
                 if (current_round < MAX_ROUNDS) {
                     GoToDraft();
                 } else {
@@ -135,6 +157,7 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case GameState.DRAFT:
+                Debug.Log("GAMESTATE Maze");
                 GoToMaze();
                 break;
             case GameState.GAME_END:
