@@ -25,6 +25,8 @@ public static void Shuffle<T>(this IList<T> list)
 
 public class RatBehaviourScript : MonoBehaviour
 {
+    const float MAX_SPEED = 0.2f;
+    const float MIN_SPEED = 1.0f;
     public float x; // Grid coordinates
     public float y;
 
@@ -187,7 +189,7 @@ public class RatBehaviourScript : MonoBehaviour
 
             // Move if we have same direction
             if (this.direction == moveDirection) {
-                waitTime = Mathf.Min(2.0f,Mathf.Max(0.0f,1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
+                waitTime = Mathf.Min(MIN_SPEED,Mathf.Max(MAX_SPEED,1.0f / genetics.GetGeneValue(GeneticType.FORWARD_SPEED)));
 
                //  Debug.Log("Moving...");
 
@@ -216,7 +218,7 @@ public class RatBehaviourScript : MonoBehaviour
             else {
                 // Instant turning for now, for one second delay
                 this.animator.SetInteger("direction",moveDirection);
-                waitTime = Mathf.Min(2.0f,Mathf.Max(0.0f,1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE)));
+                waitTime = Mathf.Min(MIN_SPEED,Mathf.Max(MAX_SPEED,1.0f / genetics.GetGeneValue(GeneticType.TURN_RATE)));
                 this.direction = moveDirection;
             }
 
