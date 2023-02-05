@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     public List<RatUIController> RatUiControllers; //Set in editor, references to the ratUIs in the bottom of the screen
     void Start()
     {
-        current_round = 0;
+        current_round = 3;
         players = new List<Player>();
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
