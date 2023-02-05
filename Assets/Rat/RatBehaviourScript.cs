@@ -424,6 +424,18 @@ public class RatBehaviourScript : MonoBehaviour
                     {
                         thisWins = true;
                     }
+                    else if (junctions == winningDirection.junctions && distance == winningDirection.distance)
+                    {
+                        // Randomize options
+                        if (winningDirection.direction != 0)
+                        {
+                            int doesThisWin = Random.Range(0, 100);
+                            if (doesThisWin < 50)
+                            {
+                                thisWins = true;
+                            }
+                        }
+                    }
 
                 }
 
