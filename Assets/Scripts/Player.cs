@@ -10,7 +10,7 @@ public class Player
     public List<RatGene> my_rat_genes;
     public RatGenetics my_rat_genetics;
     public GameObject my_rat;
-    public List<List<RatGene>> roots;
+    public List<RatGenetics> roots;
     public RatUIController my_ratUI;
     public bool already_drafted;
     public Color color;
@@ -27,7 +27,7 @@ public class Player
         draft_active = false;
         my_rat_genes = new List<RatGene>();
         my_rat = null;
-        roots = new List<List<RatGene>>();
+        roots = new List<RatGenetics>();
 
         my_rat_genetics = new RatGenetics();
         my_rat_genetics.GenerateRandom(5);
@@ -38,7 +38,7 @@ public class Player
     }
 
     public void NextGeneration(List<RatGene> b) {
-        roots.Add(my_rat_genetics.GetGenes());
+        roots.Add(my_rat_genetics);
         List<RatGene> a = new List<RatGene>(my_rat_genetics.GetGenes());
         //Debug.Log("My rat genes: " + my_rat_genetics.GetGenes().Count);
         my_rat_genes = new List<RatGene>();

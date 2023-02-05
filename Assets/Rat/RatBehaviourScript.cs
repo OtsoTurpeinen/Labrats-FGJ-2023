@@ -23,8 +23,8 @@ public static void Shuffle<T>(this IList<T> list)
 
 public class RatBehaviourScript : MonoBehaviour
 {
-    const float MAX_SPEED = 0.25f;
-    const float MIN_SPEED = 0.75f;
+    const float MAX_SPEED = 0.05f;
+    const float MIN_SPEED = 0.45f;
 
     const float MAX_SPEED_STAT = 20;
     const float MIN_SPEED_STAT = 0;
