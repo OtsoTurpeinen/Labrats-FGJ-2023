@@ -128,6 +128,10 @@ public class GameController : MonoBehaviour
             if (score <= 1)
             {
                 Debug.Log("About to step gameloop " + game_state);
+                foreach (var p in players)
+                {
+                    p.reached_maze_end = false;
+                }
                 GameLoopStep();
             }
         }
